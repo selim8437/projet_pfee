@@ -51,10 +51,10 @@ export async function POST(req: Request) {
     const { id } = evt.data;
     const eventType = evt.type;
   if (eventType=="user.created"){
-    const fristName =evt.data.first_name ;
+    const firstName =evt.data.first_name ;
     const lastName =evt.data.last_name ;
-    
-
+    const email = evt.data.email_addresses[0] ;
+    console.log("the user you just created is "+firstName+"   "+lastName+"   "+email) ;
 
   }
  
