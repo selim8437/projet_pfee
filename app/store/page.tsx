@@ -3,9 +3,7 @@ import React, { useState } from 'react';
 import Upload from '../example-uploader/page';
 import axios from 'axios';
 
-interface StoreFormProps {
-  onSubmit: (formData: FormData) => void;
-}
+
 
 interface FormData {
   name: string;
@@ -14,7 +12,7 @@ interface FormData {
   image?: File | null;
 }
 
-const StoreForm: React.FC<StoreFormProps> = ({ onSubmit }) => {
+const StoreForm: React.FC = ({  }) => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     description: '',
@@ -40,7 +38,6 @@ const StoreForm: React.FC<StoreFormProps> = ({ onSubmit }) => {
         console.log('File uploaded successfully:', response.data);
 
         // Call the onSubmit callback with the form data
-        onSubmit(formData);
       } catch (error) {
         // Handle errors (e.g., display an error message)
         console.error('Error uploading file:', error);
