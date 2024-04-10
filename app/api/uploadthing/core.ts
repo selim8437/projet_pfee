@@ -26,8 +26,8 @@ export const ourFileRouter = {
  
       console.log("file url", file.url);
  
-      // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
-      return { uploadedBy: metadata.userId };
+      // Return just the URL string
+      return file.url; // Assuming `file.url` contains the URL of the uploaded file
     }),
 } satisfies FileRouter;
  

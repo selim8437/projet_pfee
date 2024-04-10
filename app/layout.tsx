@@ -1,11 +1,16 @@
 import '@/app/ui/global.css';
 import { inter } from '@/app/ui/fonts';
-import { ClerkProvider } from '@clerk/nextjs';
-import { dark, neobrutalism } from '@clerk/themes';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import "@uploadthing/react/styles.css";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
-import "@uploadthing/react/styles.css";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
+
+import { ClerkProvider } from '@clerk/nextjs';
+import React from 'react';
+import { cn } from '@/lib/utils';
+
 export default function RootLayout({
   children,
 }: {

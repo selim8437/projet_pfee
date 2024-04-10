@@ -1,150 +1,63 @@
-'use client';
+"use client";
 import React, { useState } from 'react';
-import Upload from '../example-uploader/page';
-import axios from 'axios';
+import Link from 'next/link';
 
-
-
-interface FormData {
-  name: string;
-  description: string;
-  location: string;
-  image?: File | null;
-}
-
-const StoreForm: React.FC = ({  }) => {
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    description: '',
-    location: '',
-    image: null,
+export default function Store() {
+  const [formData, setFormData] = useState({
+    storeName: '',
+    description: ''
   });
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      [name]: value
+    }));
+  };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // Prevent default form submission behavior
 
-    // Check if an image file was selected
-    if (formData.image) {
-      // Create FormData object to send the file
-      const formDataToSend = new FormData();
-      formDataToSend.append('image', formData.image);
-
-      try {
-        // Send the file to the server
-        const response = await axios.post('/api/upload', formDataToSend);
-
-        // Handle the response from the server (e.g., display a success message)
-        console.log('File uploaded successfully:', response.data);
-
-        // Call the onSubmit callback with the form data
-      } catch (error) {
-        // Handle errors (e.g., display an error message)
-        console.error('Error uploading file:', error);
-      }
-    }
+    // Redirect to /logo with query parameters
+    window.location.href = `/logo?storeName=${encodeURIComponent(formData.storeName)}&description=${encodeURIComponent(formData.description)}`;
   };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: 'calc(100vh - 40px)', // Adjust if you have a fixed header/footer
-      }}
-    >
-      <form
-        style={{
-          width: '80%',
-          maxWidth: '600px',
-          backgroundColor: '#f8f9fa', // Background color
-          borderRadius: '10px', // Rounded corners
-          padding: '20px',
-          boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', // Box shadow for depth
-        }}
-        onSubmit={handleSubmit}
-      >
-        <div style={{ marginBottom: '20px' }}>
-          <label>
-            Store Name:
+    <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
+      <div className="text-center">
+        <form style={{ width: '26rem', margin: 'auto', padding: '2rem' }} onSubmit={handleSubmit}>
+          <div className="form-outline mb-4">
             <input
               type="text"
-              name="name"
-              value={formData.name}
+              id="form4Example1"
+              className="form-control"
+              name="storeName"
+              onChange={handleChange}
               required
-              style={{
-                width: '100%',
-                padding: '10px',
-                border: '1px solid #ccc',
-                borderRadius: '5px',
-              }}
             />
-          </label>
-        </div>
-        <div style={{ marginBottom: '20px' }}>
-          <label>
-            Description:
+            <label className="form-label" htmlFor="form4Example1">
+              Store Name
+            </label>
+          </div>
+
+          <div className="form-outline mb-4">
             <textarea
+              className="form-control"
+              id="form4Example3"
+              rows={4}
               name="description"
-              value={formData.description}
+              onChange={handleChange}
               required
-              style={{
-                width: '100%',
-                padding: '10px',
-                border: '1px solid #ccc',
-                borderRadius: '5px',
-              }}
-            />
-          </label>
-        </div>
-        <div style={{ marginBottom: '20px' }}>
-          <label>
-            Location:
-            <input
-              type="text"
-              name="location"
-              value={formData.location}
-              required
-              style={{
-                width: '100%',
-                padding: '10px',
-                border: '1px solid #ccc',
-                borderRadius: '5px',
-              }}
-            />
-          </label>
-        </div>
-        <div style={{ marginBottom: '20px' }}>
-          <label>
-            Logo:
-            <Upload/>
-          </label>
-        </div>
-        <div style={{ marginBottom: '20px' }}>
-          <label>
-            Banner:
-            <Upload/>
-          </label>
-        </div>
-        <button
-          type="submit"
-          style={{
-            display: 'block',
-            width: '100%',
-            padding: '20px',
-            backgroundColor: '#007bff',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '5px',
-            cursor: 'pointer',
-          }}
-        >
-          <b>Create Store</b>
-        </button>
-      </form>
+            ></textarea>
+            <label className="form-label" htmlFor="form4Example3">
+              Description
+            </label>
+          </div>
+
+          <button type="submit" className="btn btn-primary btn-block mb-4">Submit</button>
+        </form>
+      </div>
     </div>
   );
 };
-
-export default StoreForm;
