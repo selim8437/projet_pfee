@@ -19,7 +19,7 @@ banner:string},
     }
   return (
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center',  minHeight: '100vh' }}>
-        <label style={{ marginBottom: '1rem', fontSize: '24px',  textAlign: 'center' }}>put the store's credit card information</label>
+        <label style={{ marginBottom: '1rem', fontSize: '24px',  textAlign: 'center' }}>put the store&apos;s credit card information</label>
       {/* Now you can use imageUrl in this component */}
       <BankInfo data={data1} />
       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center',alignItems: 'center',  minHeight: '0vh' }}>
