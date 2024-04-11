@@ -39,7 +39,7 @@ export default function BankInfo({ data }: any) {
                       <input type="text" id="typeName" className="form-control form-control-lg" 
                         placeholder="Cardholder's Name" name="ownerName" 
                         onChange={handleChange} />
-                      <label className="form-label" htmlFor="typeName">Cardholder's Name</label>
+                      <label className="form-label" htmlFor="typeName">Cardholder&apos;s Name</label>
                     </div>
                   </div>
 
