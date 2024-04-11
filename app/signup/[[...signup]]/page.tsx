@@ -1,13 +1,15 @@
 "use client" ;
 import RolePage from "@/app/ui/rolee";
-import { SignUp } from "@clerk/nextjs";
-import { useState } from "react";
+import { SignUp, useClerk, useSession } from "@clerk/nextjs";
+
+import {useRouter} from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Signup() {
   const [showSignUp, setShowSignUp] = useState(false); // State to determine whether to show SignUp component
   const [selectedOption, setSelectedOption] = useState<string>(''); // State to store selected option
 
-  // Function to handle data received from child component
+ 
   const handleDataFromChild = (data1:boolean, data2:string) => {
     console.log('Data received from child:', data1, data2);
     // Update selected option
@@ -16,7 +18,7 @@ export default function Signup() {
     // Show SignUp component
     setShowSignUp(true);
   };
-
+ 
   return (
     <>
       {showSignUp ? (
@@ -29,7 +31,7 @@ export default function Signup() {
           }}
         >
           <div style={{ width: "400px", maxWidth: "500px" }}>
-            <SignUp  />
+            <SignUp />
           </div>
         </div>
       ) : (
