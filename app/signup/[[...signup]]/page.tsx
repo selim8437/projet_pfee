@@ -1,3 +1,4 @@
+"use client" ;
 import RolePage from "@/app/ui/rolee";
 import { SignUp } from "@clerk/nextjs";
 import { useRouter } from "next/router"; // Change the import here
