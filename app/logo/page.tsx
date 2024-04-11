@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import ImageUpload from '../ui/uploader';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Logo  ({searchParams}:{searchParams:{
   storeName:string ,
@@ -19,7 +20,7 @@ export default function Logo  ({searchParams}:{searchParams:{
         <label style={{ marginBottom: '1rem', fontSize: '24px',  textAlign: 'center' }}>Import a Logo for your store</label>
         <ImageUpload onImageUrlChange={handleImageUrlChange} />
       {/* Now you can use imageUrl in this component */}
-      {imageUrl && <img src={imageUrl} alt="My Image" width={200} height={200} />}
+      {imageUrl && <Image src={imageUrl} alt="My Image" width={200} height={200} />}
         <Link href={{
               pathname: '/banner',
               query: {logo:imageUrl , storeName:searchParams.storeName,description:searchParams.description},

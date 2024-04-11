@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import ImageUpload from '../ui/uploader';
 import Link from 'next/link';
-
+import Image from 'next/image';
 export default function Banner  ({searchParams}:{searchParams:{
 storeName:string ,
 description:string , 
@@ -24,7 +24,7 @@ logo:string}
         <label style={{ marginBottom: '1rem', fontSize: '24px',  textAlign: 'center' }}>Import a Banner for your store</label>
         <ImageUpload onImageUrlChange={handleImageUrlChange} />
       {/* Now you can use imageUrl in this component */}
-      {imageUrl && <img src={imageUrl} alt="My Image" width={400} height={400} />}
+      {imageUrl && <Image src={imageUrl} alt="My Image" width={400} height={400} />}
       <Link href={{
               pathname: '/creditCard',
               query: {banner:imageUrl ,logo:searchParams.logo, storeName:searchParams.storeName,description:searchParams.description},
