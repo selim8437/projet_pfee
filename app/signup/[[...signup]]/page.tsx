@@ -11,7 +11,7 @@ export default function Signup() {
   const [selectedOption, setSelectedOption] = useState<string>(''); // State to store selected option
 
   useEffect(() => {
-    // Check if the current path is /signup
+    // Check if the dfdcurrent path is /signup
     if (pathname === '/signup/') {
       setShowSignUp(false); // Show RolePage if the path is /signup
     } else {
