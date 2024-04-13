@@ -49,10 +49,12 @@ export async function POST(req: Request) {
 
     // Prepare data to send to another endpoint
     const userData = { id, email, first_name, last_name };
-
+    const host = req.headers.get('host');
+    const protocol = req.headers.get('x-forwarded-proto') || 'http';
+    const apiUrl = new URL('/api/receive-user-data', `${protocol}://${host}`);
     // Send user data to another endpoint
     try {
-      const response = await fetch('/api/receive-user-data', {
+      const response = await fetch(apiUrl.toString(), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
