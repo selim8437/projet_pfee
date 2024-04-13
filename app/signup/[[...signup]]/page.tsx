@@ -64,9 +64,7 @@ export default function Signup() {
       ) : (
         <div>
           <RolePage sendDataToParent={handleDataFromChild} />
-          {userData && (
-            
-          )}
+          
         </div>
       )}
     </>
