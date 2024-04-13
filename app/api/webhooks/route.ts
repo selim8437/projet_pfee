@@ -54,8 +54,8 @@ export async function POST(req: Request) {
     if (eventType === "user.created") {
       // Extract user information from the event data
       const {  id, first_name, last_name } = evt.data;
-      const email=evt.data.email_addresses.toString
-    
+      const email=evt.data.email_addresses[0].email_address
+      
       // Now you can use this information as needed
       console.log('User created with email:', email);
       console.log('User ID:', id);
