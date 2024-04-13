@@ -1,22 +1,23 @@
-"use client" ;
+"use client";
+
 import RolePage from "@/app/ui/rolee";
 import { SignUp } from "@clerk/nextjs";
-import { useRouter } from "next/router"; // Change the import here
+import { usePathname } from "next/navigation"; // Import usePathname from next/navigation
 import { useEffect, useState } from "react";
 
 export default function Signup() {
-  const router = useRouter();
+  const pathname = usePathname(); // Get the current pathname using usePathname
   const [showSignUp, setShowSignUp] = useState(false); // State to determine whether to show SignUp component
   const [selectedOption, setSelectedOption] = useState<string>(''); // State to store selected option
 
   useEffect(() => {
     // Check if the current path is /signup
-    if (router.pathname === '/signup') {
+    if (pathname === '/signup/') {
       setShowSignUp(false); // Show RolePage if the path is /signup
     } else {
       setShowSignUp(true); // Show SignUp component for other paths
     }
-  }, [router.pathname]);
+  }, [pathname]);
  
   const handleDataFromChild = (data1: boolean, data2: string) => {
     console.log('Data received from child:', data1, data2);
