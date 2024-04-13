@@ -29,7 +29,7 @@ export default function Signup() {
   const sendSelectedOption = async (selectedOption: string) => {
     try {
       // Make a POST request to your API endpoint with the selected option
-      await axios.post('/api/webhooks/', { selectedOption });
+      await axios.get('/api/webhooks/', { params: { selectedOption } });
       console.log('Selected option sent to API:', selectedOption);
     } catch (error) {
       console.error('Error sending selected option to API:', error);

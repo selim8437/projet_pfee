@@ -78,3 +78,30 @@ export async function POST(req: Request) {
 
   return new Response('', { status: 200 });
 }
+export async function GET(req: Request) {
+  try {
+    // Extract the selectedOption query parameter from the request URL
+    const payload = await req.json();
+    const body = JSON.stringify(payload);
+    // Do something with the selected option
+    console.log('Selected option:', body);
+
+    // You can perform any further processing with the selected option here
+
+    // Return a response indicating success
+    return {
+      status: 200,
+      body: { message: 'Selected option received successfully' }
+    };
+  } catch (error) {
+    // Handle errors
+    console.error('Error handling selected option:', error);
+
+    // Return an error response
+    return {
+      status: 500,
+      body: { error: 'Internal server error' }
+    };
+  }
+}
+
