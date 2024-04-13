@@ -1,7 +1,7 @@
 import { Webhook } from 'svix';
 import { headers } from 'next/headers';
 import { WebhookEvent } from '@clerk/nextjs/server';
-import axios from 'axios';
+let userData: any = null; // Declare a variable to store user data globally
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
@@ -54,16 +54,11 @@ export async function POST(req: Request) {
 
   if (eventType === 'user.created') {
     // Extract user information from the event data
+    
     const { id, first_name, last_name } = evt.data;
     const email = evt.data.email_addresses[0].email_address;
 
-    // Now you can use this information as needed
-    console.log('User created with email:', email);
-    console.log('User ID:', id);
-    console.log('First name:', first_name);
-    console.log('Last name:', last_name);
-
-    // Store user information in userData variable
+    // Store user information globally
     userData = { id, email, first_name, last_name };
   }
 
@@ -77,4 +72,19 @@ export async function POST(req: Request) {
 
   // Handle the additional data as needed
 
-  return new Response(JSON.stringify(userData), { status: 200 });}
+  return new Response('', { status: 200 });
+}
+export async function GET(req: Request) {
+  if (userData) {
+    // Return the user data in the response
+    return new Response(JSON.stringify(userData), {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  } else {
+    return new Response('User data not available', {
+      status: 404,
+    });
+  }
+}
