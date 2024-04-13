@@ -27,10 +27,9 @@ export default function Signup() {
   // Function to fetch user data
   const fetchUserData = async () => {
     try {
-      // Make a GET request to fetch user data from the API
-      const response = await axios.get('/api/webhooks/'); // Update the endpoint as per your API
+      // Make a POST request to fetch user data from the API
+      const response = await axios.post('/api/webhooks/', { /* Add any request body if needed */ }); // Update the endpoint as per your API
       const userData = response.data;
-      console.log(userData)
       setUserData(userData);
     } catch (error) {
       console.error('Error fetching user data:', error);
