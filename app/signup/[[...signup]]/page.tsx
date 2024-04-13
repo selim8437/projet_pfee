@@ -1,3 +1,4 @@
+"use client" ;
 import RolePage from "@/app/ui/rolee";
 import { SignUp } from "@clerk/nextjs";
 import { usePathname } from "next/navigation"; // Import usePathname from next/navigation
