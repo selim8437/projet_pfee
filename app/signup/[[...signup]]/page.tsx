@@ -30,6 +30,7 @@ export default function Signup() {
       // Make a GET request to fetch user data from the API
       const response = await axios.get('/api/userData'); // Update the endpoint as per your API
       const userData = response.data;
+      console.log(userData)
       setUserData(userData);
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -64,12 +65,7 @@ export default function Signup() {
         <div>
           <RolePage sendDataToParent={handleDataFromChild} />
           {userData && (
-            <div>
-              <p>User ID: {userData.id}</p>
-              <p>Email: {userData.email}</p>
-              <p>First Name: {userData.first_name}</p>
-              <p>Last Name: {userData.last_name}</p>
-            </div>
+            
           )}
         </div>
       )}
