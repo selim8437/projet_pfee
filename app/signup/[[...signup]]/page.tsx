@@ -28,7 +28,7 @@ export default function Signup() {
   const fetchUserData = async () => {
     try {
       // Make a GET request to fetch user data from the API
-      const response = await axios.get('/api/userData'); // Update the endpoint as per your API
+      const response = await axios.get('/api/webhooks/'); // Update the endpoint as per your API
       const userData = response.data;
       console.log(userData)
       setUserData(userData);
