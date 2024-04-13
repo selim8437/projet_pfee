@@ -50,6 +50,7 @@ export async function POST(req: Request) {
   // Get the ID and type
   const { id } = evt.data;
   const eventType = evt.type;
+  let userData: any = null; // Initialize userData variable to store user information
 
   if (eventType === 'user.created') {
     // Extract user information from the event data
@@ -62,46 +63,18 @@ export async function POST(req: Request) {
     console.log('First name:', first_name);
     console.log('Last name:', last_name);
 
-    // You can perform any additional actions with this user information here
+    // Store user information in userData variable
+    userData = { id, email, first_name, last_name };
   }
+
 
   console.log(`Webhook with an ID of ${id} and type of ${eventType}`);
   console.log('Webhook body:', body);
 
   // Extract additional data from the independent POST request
-  const additionalData = await req.json();
 
   // Now you can use the additional data
-  console.log('Additional data from independent POST request:', additionalData);
 
   // Handle the additional data as needed
 
-  return new Response('', { status: 200 });
-}
-export async function GET(req: Request) {
-  try {
-    // Extract the selectedOption query parameter from the request URL
-    const payload = await req.json();
-    const body = JSON.stringify(payload);
-    // Do something with the selected option
-    console.log('Selected option:', body);
-
-    // You can perform any further processing with the selected option here
-
-    // Return a response indicating success
-    return {
-      status: 200,
-      body: { message: 'Selected option received successfully' }
-    };
-  } catch (error) {
-    // Handle errors
-    console.error('Error handling selected option:', error);
-
-    // Return an error response
-    return {
-      status: 500,
-      body: { error: 'Internal server error' }
-    };
-  }
-}
-
+  return new Response(JSON.stringify(userData), { status: 200 });}

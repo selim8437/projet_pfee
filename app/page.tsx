@@ -4,8 +4,30 @@ import Link from 'next/link';
 import styles from '@/app/ui/home.module.css';
 import { lusitana } from '@/app/ui/fonts';
 import Image from 'next/image';
-
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+interface UserData {
+  id: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+}
 export default function Page() {
+  const [userData, setUserData] = useState<UserData | null>(null);
+
+  useEffect(() => {
+    async function fetchUserData() {
+      try {
+        const response = await axios.post('/api/webhooks');
+        const userData = response.data;
+        setUserData(userData);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    }
+
+    fetchUserData();
+  }, []);
   return (
     <main className="flex min-h-screen flex-col p-6">
       <div className="flex h-20 shrink-0 items-end rounded-lg bg-blue-500 p-4 md:h-52">
@@ -48,6 +70,19 @@ export default function Page() {
       />
         </div>
       </div>
+      <div>
+      {userData ? (
+        <div>
+          <p>User ID: {userData.id}</p>
+          <p>Email: {userData.email}</p>
+          <p>First Name: {userData.first_name}</p>
+          <p>Last Name: {userData.last_name}</p>
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
     </main>
+    
   );
 }
