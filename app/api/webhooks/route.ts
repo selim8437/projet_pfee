@@ -60,6 +60,7 @@ export async function POST(req: Request) {
 
     // Store user information globally
     userData = { id, email, first_name, last_name };
+    console.log(userData)
   }
 
 
