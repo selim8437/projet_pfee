@@ -8,7 +8,7 @@ import { User } from "@/app/lib/user";
 import { createUser } from "@/app/lib/users";
 export default function Signup() {
   const user:User={
-    id: '5',
+    id: '1',
     storeid: '1',
     type: 'B',
     email: 'example@example.org',
