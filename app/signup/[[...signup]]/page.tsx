@@ -4,8 +4,19 @@ import RolePage from "@/app/ui/rolee";
 import { SignUp } from "@clerk/nextjs";
 import { usePathname } from "next/navigation"; // Import usePathname from next/navigation
 import { useEffect, useState } from "react";
-
+import { User } from "@/app/lib/user";
+import { createUser } from "@/app/lib/users";
 export default function Signup() {
+  const user:User={
+    id: '5',
+    storeid: '1',
+    type: 'B',
+    email: 'example@example.org',
+    firstName: 'Example',
+    lastName: 'Example'
+  }
+  createUser(user);
+
   const pathname = usePathname(); // Get the current pathname using usePathname
   const [showSignUp, setShowSignUp] = useState(false); // State to determine whether to show SignUp component
   const [selectedOption, setSelectedOption] = useState<string>(''); // State to store selected option

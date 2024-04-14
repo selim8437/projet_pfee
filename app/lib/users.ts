@@ -9,7 +9,7 @@ import { unstable_noStore as noStore } from 'next/cache';
 
 export async function createUser(user:User ){
     try {
-         sql`
+          sql`
           INSERT INTO users VALUES( 
           ${user.id} ,${user.storeid},${user.type},${user.email},${user.firstName},${user.lastName})
         `;
