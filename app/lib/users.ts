@@ -11,6 +11,7 @@ export async function createUser(user:User ){
           INSERT INTO users VALUES( 
           ${user.id} ,${user.storeid},${user.type},${user.email},${user.firstName},${user.lastName})
         `;
+        console.log("wsellll cbn")
       } catch (error) {
         // If a database error occurs, return a more specific error.
         
