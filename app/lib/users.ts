@@ -7,15 +7,14 @@ import { error } from 'console';
 import {User} from './user'
 export async function createUser(user:User ){
     try {
-        await sql`
+         sql`
           INSERT INTO users VALUES( 
           ${user.id} ,${user.storeid},${user.type},${user.email},${user.firstName},${user.lastName})
         `;
       } catch (error) {
         // If a database error occurs, return a more specific error.
-        return {
-          message: 'Database Error: Failed to Create user.',
-        };
+        
+          console.log( error ,'    Database Error: Failed to Create user.')
       }
 }
 
