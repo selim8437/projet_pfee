@@ -16,7 +16,6 @@ export default function Signup() {
     lastName: 'Example'
   }
   try{
-  createUser(user);
   }catch(e){
     console.log(e);
   }
