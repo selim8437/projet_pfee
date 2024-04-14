@@ -50,8 +50,8 @@ export async function POST(req: Request) {
     const firstName=first_name ;
     const lastName=last_name ;
 
-    const storeid=" ";
-    const type=" " ;
+    const storeid='' ;
+    const type='' ;
 
     // Prepare data to send to another endpoint
     const userData :User= { id,storeid,type, email, firstName, lastName };
