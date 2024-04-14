@@ -5,6 +5,8 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { error } from 'console';
 import {User} from './user'
+import { unstable_noStore as noStore } from 'next/cache';
+
 export async function createUser(user:User ){
     try {
          sql`
@@ -12,11 +14,14 @@ export async function createUser(user:User ){
           ${user.id} ,${user.storeid},${user.type},${user.email},${user.firstName},${user.lastName})
         `;
         console.log("wsellll cbn" , user)
+        noStore() ;
       } catch (error) {
         // If a database error occurs, return a more specific error.
         
           console.log( error ,'    Database Error: Failed to Create user.')
+          noStore()
       }
+      
 }
 
 export async function updateStore(id:string ,storeId:string ,type:string ,email:string ){
