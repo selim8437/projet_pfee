@@ -4,12 +4,12 @@ import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { error } from 'console';
-
-export async function createStore(id:string ,storeId:string ,type:string ,email:string ){
+import {User} from './user'
+export async function createUser(user:User ){
     try {
         await sql`
           INSERT INTO users VALUES( 
-          ${id} ,${storeId},${type},${email})
+          ${user.id} ,${user.storeid},${user.type},${user.email},${user.firstName},${user.lastName})
         `;
       } catch (error) {
         // If a database error occurs, return a more specific error.

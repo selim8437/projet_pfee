@@ -1,7 +1,8 @@
 import { Webhook } from 'svix';
 import { headers } from 'next/headers';
 import { WebhookEvent } from '@clerk/nextjs/server';
-
+import { createUser } from '@/app/lib/users';
+import { User } from '@/app/lib/user';
 export async function POST(req: Request) {
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 
@@ -46,25 +47,20 @@ export async function POST(req: Request) {
   if (eventType === 'user.created') {
     const { id, first_name, last_name } = evt.data;
     const email = evt.data.email_addresses[0].email_address;
+    const firstName=first_name ;
+    const lastName=last_name ;
+
+    const storeid=" ";
+    const type=" " ;
 
     // Prepare data to send to another endpoint
-    const userData = { id, email, first_name, last_name };
+    const userData :User= { id,storeid,type, email, firstName, lastName };
   
     // Send user data to another endpoint
     try {
-      const response = await fetch('/api/user', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      });
+      createUser(userData);
 
-      if (!response.ok) {
-        throw new Error('Failed to send user data to another endpoint');
-      }
-
-      console.log('User data sent successfully to another endpoint');
+    
     } catch (error) {
       console.error('Error sending user data to another endpoint:', error);
       return new Response('Error occurred', {
