@@ -15,8 +15,11 @@ export default function Signup() {
     firstName: 'Example',
     lastName: 'Example'
   }
+  try{
   createUser(user);
-
+  }catch(e){
+    console.log(e);
+  }
   const pathname = usePathname(); // Get the current pathname using usePathname
   const [showSignUp, setShowSignUp] = useState(false); // State to determine whether to show SignUp component
   const [selectedOption, setSelectedOption] = useState<string>(''); // State to store selected option
