@@ -55,11 +55,11 @@ export async function POST(req: Request) {
 
     // Prepare data to send to another endpoint
     const userData :User= { id,storeid,type, email, firstName, lastName };
-  
+  console.log('knkjkjkj') ;
     // Send user data to another endpoint
     try {
       createUser(userData);
-
+      console.log("sssssssss") ;
     
     } catch (error) {
       console.error('Error sending user data to another endpoint:', error);
