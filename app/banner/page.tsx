@@ -26,7 +26,7 @@ logo:string}
       {/* Now you can use imageUrl in this component */}
       {imageUrl && <Image src={imageUrl} alt="My Image" width={400} height={400} />}
       <Link href={{
-              pathname: '/creditCard',
+              pathname: '/documentVerif',
               query: {banner:imageUrl ,logo:searchParams.logo, storeName:searchParams.storeName,description:searchParams.description},
             }}><button className="btn btn-primary" onClick={createSellerAccount}>Next</button>
         </Link>

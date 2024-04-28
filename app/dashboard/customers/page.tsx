@@ -1,3 +1,6 @@
+import { CreateProduct } from "@/components/component/create-product";
+
 export default function Page() {
-    return <p>Customers Page</p>;
+    return <CreateProduct/>;
   }
+

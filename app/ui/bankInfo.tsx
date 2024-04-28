@@ -1,3 +1,4 @@
+"use client" ;
 import React, { useState } from 'react';
 import Image from 'next/image';
 export default function BankInfo({ data }: any) {
@@ -31,7 +32,7 @@ export default function BankInfo({ data }: any) {
                         onChange={handleChange} />
                       <label className="form-label" htmlFor="typeText">Card Number</label>
                     </div>
-                    <Image src="https://img.icons8.com/color/48/000000/visa.png" alt="visa" width={64} />
+                    <Image src="https://img.icons8.com/color/48/000000/visa.png" alt="visa" width={64} height={64}/>
                   </div>
 
                   <div className="d-flex justify-content-between align-items-center mb-4">

@@ -2,6 +2,7 @@
 const nextConfig = {
     trailingSlash: true,
     images:{
+        domains: ['img.icons8.com'],
         remotePatterns:[
             {
                 hostname:'utfs.io'

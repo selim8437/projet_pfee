@@ -15,6 +15,7 @@ export async function createUser(user:User ){
         `;
         console.log("wsellll cbn" , user)
         noStore() ;
+        
       } catch (error) {
         // If a database error occurs, return a more specific error.
         
@@ -22,6 +23,23 @@ export async function createUser(user:User ){
           noStore()
       }
       
+}
+export async function setType(type:string,id:string) {
+  try {
+    sql`
+    UPDATE users SET type= 
+    ${type} WHERE id=${id}
+  `;
+  console.log("wsellll cbn" , type)
+  noStore() ;
+  
+} catch (error) {
+  // If a database error occurs, return a more specific error.
+  
+    console.log( error ,'    Database Error: Failed to Create user.')
+    noStore()
+}
+  
 }
 
 export async function updateStore(id:string ,storeId:string ,type:string ,email:string ){

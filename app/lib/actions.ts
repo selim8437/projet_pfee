@@ -148,3 +148,7 @@ export async function createUser(formData:FormData) {
       revalidatePath('/dashboard/invoices');
       redirect('/dashboard/invoices');
 }
+export async function redirecti(path:string){
+  revalidatePath(path);
+  redirect(path);
+}

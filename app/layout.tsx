@@ -1,8 +1,7 @@
-import '@/app/ui/global.css';
+import '@/app/globals.css';
 import { inter } from '@/app/ui/fonts';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import "@uploadthing/react/styles.css";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
@@ -20,8 +19,7 @@ export default function RootLayout({
     <ClerkProvider
     >
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
-      <NextSSRPlugin
+    <NextSSRPlugin
           /**
            * The `extractRouterConfig` will extract **only** the route configs
            * from the router to prevent additional information from being
@@ -30,7 +28,8 @@ export default function RootLayout({
            */
           routerConfig={extractRouterConfig(ourFileRouter)}
         />
-        {children}</body>
+    <body className={`${inter.variable} antialiased`}>{children}</body>
+      
     </html>
     </ClerkProvider>
 
