@@ -1,16 +1,16 @@
 "use client";// ImageUpload.js
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { UploadDropzone } from "@/app/lib/uploadthing";
+import { UploadButton, UploadDropzone } from "@/app/lib/uploadthing";
 
 interface ImageUploadProps {
   onImageUrlChange: (url: string) => void; // Define the type for the onImageUrlChange prop
 }
 
-const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUrlChange }) => {
+const ButtonUpload: React.FC<ImageUploadProps> = ({ onImageUrlChange }) => {
   const [imageUrl, setImageUrl] = useState<string>('');
   const[test,setTest]=useState<boolean>(true);
-  const handleUploadComplete = (res: { url: string; }[]) => {
+  const handleUploadComplete = (res: { url: string;}[]) => {
     const url = res[0]?.url || '';
     setImageUrl(url);
     // Call the callback function to pass the URL to the parent component
@@ -21,7 +21,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUrlChange }) => {
   return (
     <div className="flex flex-col items-center justify-between">
        {test ? (
-    <UploadDropzone
+    <UploadButton
     
     endpoint="imageUploader"
     onClientUploadComplete={handleUploadComplete}
@@ -38,4 +38,4 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUrlChange }) => {
   );
 };
 
-export default ImageUpload;
+export default ButtonUpload;

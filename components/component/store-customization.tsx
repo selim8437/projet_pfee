@@ -39,35 +39,12 @@ import { useUser } from "@clerk/nextjs";
 import Image from 'next/image';
 import {Logo} from '@/components/component/logo'
 import {Banner} from '@/components/component/banner'
+import DashboardSkeleton from "@/app/ui/skeletons";
+import { ProfileLogo } from "./profile-logo";
 
 export default function StoreCustomization() {
-  const { user } = useUser();
-  let result; // Declared at the top level, making it global within the module or script
-  let store ;
-  const userId = user?.id; // Get the user ID or undefined if user is null/undefined
-  useEffect(() => {
-
-  const handleGetStore = async () => { 
-    // mark the function as async
-    if (userId){
-      result = await getStoreByid(userId); // Wait for the promise to resolve
-
-    if (result.rows.length > 0) {
-            store = result.rows[0]; // Accessing the first row of the result
-            setStoreName(store.name);
-            setLogoUrl(store.logo);
-            setBannerUrl(store.banner);
-            setStoreDescription(store.description);
-            setStoreCategory(store.categoryid);
-            setShippingOption(store.shipping_option);
-            setReturnPolicy(store.return_policies);
-    } else {
-        console.log('No result found');
-    }
-};
-  }
-  handleGetStore();
-},)
+  const [logoTest, setLogoTest] = useState(false);
+  const [bannerTest, setBannerTest] = useState(false);
   const [storeName, setStoreName] = useState('');
   const [logoUrl, setLogoUrl] = useState('');
   const [bannerUrl, setBannerUrl] = useState('');
@@ -75,7 +52,90 @@ export default function StoreCustomization() {
   const [storeCategory, setStoreCategory] = useState('');
   const [shippingOption, setShippingOption] = useState('');
   const [returnPolicy, setReturnPolicy] = useState('');
+  const [isLoading, setIsLoading] = useState(true); // State to track loading status
 
+  const { user } = useUser();
+  
+  const userId = user?.id; // Get the user ID or undefined if user is null/undefined
+  const isEmptyString = (str: string): boolean => {
+    return str.trim().length === 0;
+   
+  };
+  
+
+  
+  
+  useEffect(() => {
+    const handleGetStore = async () => {
+      if (user?.id) {
+        try {
+          const result = await getStoreByid(user.id);
+          if (result.rows.length > 0) {
+            const store = result.rows[0];
+            // Update state only after fetching is complete
+            if(store.name){
+              setStoreName(store.name);
+            }
+
+            if(store.logo){
+              setLogoUrl(store.logo);
+            }
+
+            if(store.banner){
+              setBannerUrl(store.banner);
+            }
+
+            if(store.description){
+              setStoreDescription(store.description);
+            }
+
+            if(store.categoryid){
+              setStoreCategory(store.categoryid);
+            }
+
+            if(store.shipping_option){
+              setShippingOption(store.shipping_option);
+            }
+
+            if(store.return_policies){
+              setReturnPolicy(store.return_policies);
+            }
+           
+            if (isEmptyString(store.logo)===false){
+              setLogoTest(true);
+            }
+            console.log(bannerUrl);
+            if (isEmptyString(store.banner)===false){
+              setBannerTest(true);
+            }
+          } else {
+            console.log('No result found');
+          }
+        } catch (error) {
+          console.error('Error fetching store:', error);
+        } finally {
+         
+          // Update loading status after fetching is complete
+          setIsLoading(false);
+          
+
+        }
+      }
+    };
+  
+    handleGetStore();
+  }, [user]); // Add user as a dependency
+  
+  
+  const handleLogoUrlChange = (url: SetStateAction<string>) => {
+    setLogoUrl(url);
+    setLogoTest(true);
+  };
+  const handleBannerUrlChange = (url: SetStateAction<string>) => {
+    setBannerUrl(url);
+    setBannerTest(true);
+
+  };
   
 
   const handleSaveChanges = () => {
@@ -93,8 +153,17 @@ export default function StoreCustomization() {
     } 
     storeCustom();        
   }
-
+  const handleChangeImageBanner =()=>{
+    setBannerTest(false)
+  }
+  const handleChangeImageLogo =()=>{
+    setLogoTest(false)
+  }
   return (
+    <>
+    {isLoading ? (
+      <div><DashboardSkeleton/></div>
+    ) : (
     <div>
      <div className="container  px-8 py-12 md:px-8 lg:px-10">
       <div className="flex justify-center">
@@ -117,14 +186,25 @@ export default function StoreCustomization() {
                 <CardTitle>Store Logo</CardTitle>
               </CardHeader>
               <CardContent>
-              <div className="flex items-center justify-center" >
-                  <ImageUpload onImageUrlChange={setLogoUrl} />
-
+              {logoTest ? (
+                <ProfileLogo url={logoUrl}/>
+                                
+              ) : (
+                <div className="flex items-center justify-center" >
+                <ImageUpload onImageUrlChange={handleLogoUrlChange} />
                 </div>
+              )}
               
                
               </CardContent>
-             
+              {logoTest ? (
+                <CardFooter className="flex justify-center items-center mt-8">
+                    <Button onClick={handleChangeImageLogo}>Change image</Button>
+                </CardFooter>        
+              ) : (
+                <div >
+                </div>
+              )}
             </Card>
           </div>
           {/* Store Banner */}
@@ -134,11 +214,25 @@ export default function StoreCustomization() {
                 <CardTitle>Store Banner</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="flex items-center justify-center" >
-                  <ImageUpload onImageUrlChange={setBannerUrl} />
-                </div>
-              </CardContent>
+              {bannerTest ? (
+                <Banner url={bannerUrl} />
+               
+              ) : (
               
+                <div className="flex items-center justify-center" >
+                  <ImageUpload onImageUrlChange={handleBannerUrlChange} />                  
+                </div>
+
+              )}
+              </CardContent>
+              {bannerTest ? (
+                <CardFooter className="flex justify-center items-center mt-8">
+                    <Button onClick={handleChangeImageBanner}>Change image</Button>
+                </CardFooter>        
+              ) : (
+                <div >
+                </div>
+              )}
             </Card>
           </div>
           {/* Store Description */}
@@ -209,5 +303,6 @@ export default function StoreCustomization() {
         <Button onClick={handleSaveChanges}>Save Changes</Button>
       </div>
     </div>
-  );
-}
+    )}
+    </>
+  );}

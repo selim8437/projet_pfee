@@ -4,7 +4,7 @@ import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { error } from 'console';
-import {User} from './user'
+import {User} from './types/user'
 import { unstable_noStore as noStore } from 'next/cache';
 
 export async function createUser(user:User ){

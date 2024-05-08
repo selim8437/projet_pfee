@@ -20,7 +20,6 @@ export default function Logo  ({searchParams}:{searchParams:{
         <label style={{ marginBottom: '1rem', fontSize: '24px',  textAlign: 'center' }}>Import a Logo for your store</label>
         <ImageUpload onImageUrlChange={handleImageUrlChange} />
       {/* Now you can use imageUrl in this component */}
-      {imageUrl && <Image src={imageUrl} alt="My Image" width={200} height={200} />}
         <Link href={{
               pathname: '/banner',
               query: {logo:imageUrl , storeName:searchParams.storeName,description:searchParams.description},

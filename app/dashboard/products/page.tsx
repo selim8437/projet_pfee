@@ -1,9 +1,9 @@
-import { Product } from "@/components/component/product";
+import { ConsultingProducts } from "@/components/component/consulting-products";
 
  
 export default async function Page(){
   
     return (
-    <Product></Product>
+    <ConsultingProducts/>
   );
 }

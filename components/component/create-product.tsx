@@ -24,6 +24,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { JSX, SVGProps, useState } from "react"
 import ImageUpload from "@/app/ui/uploader"
+import ButtonUpload from "@/app/ui/uploader-button";
 
 export function CreateProduct() {
   const [imageUrl, setImageUrl] = useState('');
@@ -90,7 +91,7 @@ export function CreateProduct() {
           <div>
             <Label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Product Image</Label>
             <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
-                  <ImageUpload onImageUrlChange={handleImageUrlChange} />
+                  <ButtonUpload onImageUrlChange={handleImageUrlChange} />
             </div>
           </div>
           <div>

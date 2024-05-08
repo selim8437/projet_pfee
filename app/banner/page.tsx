@@ -20,11 +20,16 @@ logo:string}
   }
 
   return (
+    
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+      
         <label style={{ marginBottom: '1rem', fontSize: '24px',  textAlign: 'center' }}>Import a Banner for your store</label>
+        <br></br>
+        <br></br>
         <ImageUpload onImageUrlChange={handleImageUrlChange} />
       {/* Now you can use imageUrl in this component */}
-      {imageUrl && <Image src={imageUrl} alt="My Image" width={400} height={400} />}
+      <br></br>
+      <br></br>
       <Link href={{
               pathname: '/documentVerif',
               query: {banner:imageUrl ,logo:searchParams.logo, storeName:searchParams.storeName,description:searchParams.description},
