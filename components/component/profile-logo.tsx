@@ -19,7 +19,7 @@ To read more about using these font, please visit the Next.js documentation:
 **/
 export function ProfileLogo(props: { url: string }) {
   return (
-    <div className="flex items-center justify-center w-full max-w-md p-6 border border-gray-200 rounded-md gap-6">
+    <div className="flex items-center justify-center w-full max-w-md p-6 rounded-md gap-6">
 
       <div className="relative w-32 h-32 rounded-full overflow-hidden">
         

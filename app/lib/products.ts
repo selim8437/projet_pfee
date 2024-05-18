@@ -43,7 +43,7 @@ export async function updateProduct(product: Product) {
       storid = ${product.storeId}
       WHERE id = ${product.id};`;
 
-    console.log('Product updated', formattedImagesString);
+    console.log('Product updated', product.id);
    
   } catch (error) {
     console.log(error);
@@ -68,12 +68,35 @@ export async function getProducts(id:string){
             specifications: row.specifications,
             storeId: row.storid
         }));
-        console.log('products fetched',products)
+        console.log('products fetched')
         return products ;
     } catch (error) {
         // If a database error occurs, return a more specific error.
         console.log(error)
       }
+}
+export async function getAllProducts(){
+  noStore();
+   try {
+       const result= await sql`
+         SELECT * FROM products  ;
+       `;
+       const products: Product[] = result.rows.map(row => ({
+           id: row.id,
+           title: row.title,
+           description: row.description,
+           price: row.price,
+           quantity: row.quantity,
+           images: row.images,
+           specifications: row.specifications,
+           storeId: row.storid
+       }));
+       console.log('products fetched')
+       return products ;
+   } catch (error) {
+       // If a database error occurs, return a more specific error.
+       console.log(error)
+     }
 }
 export async function deleteProductById(id:string){
     try {

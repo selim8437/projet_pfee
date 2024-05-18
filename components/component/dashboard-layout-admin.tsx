@@ -20,9 +20,9 @@ To read more about using these font, please visit the Next.js documentation:
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { JSX, SVGProps } from "react"
-import NavLinks from "@/app/ui/dashboard/nav-links"
+import NavLinksAdmin from "@/app/ui/dashboard/nav-links-admin"
 
-export function DashboardLayout() {
+export function DashboardLayoutAdmin() {
   return (
     <div className="border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
       <div className="flex h-full max-h-screen flex-col gap-2">
@@ -38,7 +38,7 @@ export function DashboardLayout() {
         </div>
         <div className="flex-1 overflow-auto py-2">
           <nav className="grid items-start px-4 text-sm font-medium">
-            <NavLinks/>
+            <NavLinksAdmin/>
           </nav>
         </div>
         

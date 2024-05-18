@@ -27,17 +27,12 @@ To read more about using these font, please visit the Next.js documentation:
 import { CardTitle, CardHeader, CardContent, Card, CardFooter } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { RadioGroupItem, RadioGroup } from "@/components/ui/radio-group"
 import { Button } from "@/components/ui/button"
 import ImageUpload from "@/app/ui/uploader";
 import { SetStateAction, useEffect, useState } from "react";
-import { Radio } from "lucide-react";
-import { Label } from "../ui/label";
-import { Select } from "../ui/select";
-import { createCategory, getStoreByid, updateStore, updateStore2, updateStoreWithCategory } from "@/app/lib/stores";
+
+import {  getStoreByid, updateStoreWithCategory } from "@/app/lib/stores";
 import { useUser } from "@clerk/nextjs";
-import Image from 'next/image';
-import {Logo} from '@/components/component/logo'
 import {Banner} from '@/components/component/banner'
 import DashboardSkeleton from "@/app/ui/skeletons";
 import { ProfileLogo } from "./profile-logo";
@@ -70,47 +65,37 @@ export default function StoreCustomization() {
       if (user?.id) {
         try {
           const result = await getStoreByid(user.id);
-          if (result.rows.length > 0) {
-            const store = result.rows[0];
+          
             // Update state only after fetching is complete
-            if(store.name){
-              setStoreName(store.name);
-            }
+              setStoreName(result.name);
+            
 
-            if(store.logo){
-              setLogoUrl(store.logo);
-            }
+              setLogoUrl(result.logo);
+            
 
-            if(store.banner){
-              setBannerUrl(store.banner);
-            }
+              setBannerUrl(result.banner);
+            
 
-            if(store.description){
-              setStoreDescription(store.description);
-            }
+              setStoreDescription(result.description);
+            
 
-            if(store.categoryid){
-              setStoreCategory(store.categoryid);
-            }
+              setStoreCategory(result.categoryId);
+            
 
-            if(store.shipping_option){
-              setShippingOption(store.shipping_option);
-            }
+              setShippingOption(result.shippingOptions);
+            
 
-            if(store.return_policies){
-              setReturnPolicy(store.return_policies);
-            }
+              setReturnPolicy(result.returnPolicies);
+            
            
-            if (isEmptyString(store.logo)===false){
+            if (isEmptyString(result.logo)===false){
               setLogoTest(true);
             }
             console.log(bannerUrl);
-            if (isEmptyString(store.banner)===false){
+            if (isEmptyString(result.banner)===false){
               setBannerTest(true);
             }
-          } else {
-            console.log('No result found');
-          }
+          
         } catch (error) {
           console.error('Error fetching store:', error);
         } finally {

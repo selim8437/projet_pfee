@@ -1,6 +1,5 @@
 import { Product } from "@/app/lib/types/prduct"; // Corrected spelling
 import { useEffect, useState } from "react";
-import ImageUpload from "@/app/ui/uploader";
 import { updateProduct } from "@/app/lib/products";
 import { Dialog, DialogContent, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";

@@ -9,5 +9,6 @@ export interface Store{
     verifUrl:string ;
     verifState:string  ;
     shippingOptions:string ;
+    returnPolicies:string ;
     }
     

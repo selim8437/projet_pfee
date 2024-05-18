@@ -24,6 +24,21 @@ export async function createUser(user:User ){
       }
       
 }
+export async function updateUser(user:User ){
+  try {
+        sql`
+        UPDATE users SET storeid=${user.storeid},type=${user.type},email=${user.email},firstname=${user.firstName},lastname${user.lastName} WHERE id=${user.id}`;
+      console.log("wsellll cbn" , user)
+      noStore() ;
+      
+    } catch (error) {
+      // If a database error occurs, return a more specific error.
+      
+        console.log( error ,'    Database Error: Failed to Create user.')
+        noStore()
+    }
+    
+}
 export async function setType(type:string,id:string) {
   try {
     sql`
@@ -68,6 +83,28 @@ export async function getUserByid(id:string ){
           message: 'Database Error: Failed to get User.',
         };
       }
+}
+export async function getAllUsers(){
+  noStore();
+  try {
+      const result= await sql`
+        SELECT * FROM users  ;
+      `;
+      const users: User[] = result.rows.map(row => ({
+          id: row.id,
+          lastName: row.lastname,
+          firstName: row.firstname,
+          email: row.email,
+          storeid: row.storeid,
+          type: row.type
+         
+      }));
+      console.log('users fetched')
+      return users ;
+  } catch (error) {
+      // If a database error occurs, return a more specific error.
+      console.log(error)
+    }
 }
 
 export async function deleteUserById(id:string){
