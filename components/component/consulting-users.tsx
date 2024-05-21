@@ -87,36 +87,28 @@ export function ConsultingUsers() {
       {isLoading ? (
         <div><DashboardSkeleton /></div>
       ) : (
-        <div className="border rounded-lg overflow-hidden">
-          <div className="flex items-center justify-between bg-gray-100 px-4 py-3 dark:bg-gray-900">
-          <div className="flex items-left"> 
-              <Button onClick={scrollToAddUsers}>Add user</Button>
-            </div>
-            <div className="relative">
-              <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500 dark:text-gray-400" />
-              <Input
-                className="w-[300px] rounded-md bg-white px-8 py-2 text-sm shadow-sm transition-colors focus:outline-none focus:ring-1 focus:ring-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:focus:ring-gray-300"
-                placeholder="Search Users..."
-                type="search"
-              />
-              
-            </div>
-            
-
-            <div className="flex gap-2">
-              <Button size="sm" variant="outline">
-                <FilterIcon className="h-4 w-4" />
-                Filter
-              </Button>
-              <Button size="sm" variant="outline">
-                <ListOrderedIcon className="h-4 w-4" />
-                Sort
-              </Button>
-            </div>
-          </div>
+        <div >
+         <div className="grid gap-6 md:gap-8">
+      <div className="flex justify-center items-center ">
+  <div className="w-full max-w-screen-lg">
+    <div className="relative">
+      <div className="absolute left-3 top-1/2 -translate-y-1/2">
+        <SearchIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+      </div>
+      <Input
+        className="w-full rounded-md bg-white px-8 py-2 pl-8 text-sm shadow-sm transition-colors focus:outline-none focus:ring-1 focus:ring-gray-900 dark:bg-gray-800 dark:text-black-50 dark:focus:ring-gray-300"
+        placeholder="Search Users..."
+        type="search"
+      />
+    </div>
+  </div>
+</div>
+</div>
           
-          <Table>
-            <TableHeader>
+         <div className="mx-auto px-8 py-16">
+      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+          <Table className="w-full table-auto">
+            <TableHeader className="bg-gray-100 text-gray-600 font-medium">
               <TableRow>
                 <TableHead>Id</TableHead>
                 <TableHead>firstName</TableHead>
@@ -124,6 +116,8 @@ export function ConsultingUsers() {
                 <TableHead>Email</TableHead>
                 <TableHead>Type</TableHead>
                 <TableHead>storeId</TableHead>
+                <TableHead></TableHead>
+
               </TableRow>
             </TableHeader>
               
@@ -154,6 +148,8 @@ export function ConsultingUsers() {
 
               
           </Table>
+          </div>
+          </div>
           <div ref={UsersRef}>
             <Cuser />
           </div>

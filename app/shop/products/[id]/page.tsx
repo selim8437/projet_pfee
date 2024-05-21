@@ -10,6 +10,7 @@ export default function Page({ params }: { params: { id: string } }) {
   useEffect(() => {
     // Run only on the client side after component mounts
     const data = sessionStorage.getItem('myData');
+    sessionStorage.setItem('CurrentShop',id) ;
     if (data) {
       setStoredData(JSON.parse(data) as Product[]);
       console.log('Data retrieved from sessionStorage:', data);

@@ -21,41 +21,36 @@ To read more about using these font, please visit the Next.js documentation:
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@/components/ui/table";
-import { EditButton } from "./edit-button";
 
 import { JSX, SVGProps, useEffect, useRef, useState } from "react";
-import { Product } from "@/app/lib/types/prduct";
-import { deleteProductById, getProducts } from "@/app/lib/products";
 import DashboardSkeleton from "@/app/ui/skeletons";
 import { Cproduct } from "./cproduct";
 import { useUser } from "@clerk/nextjs";
+import { deleteCategById, getAllCategories } from "@/app/lib/categories";
+import { Category } from "@/app/lib/types/category";
+import { EditButtonCateg } from "./edit-button-categ";
+import { Ccateg } from "./cCateg";
 
-export function ConsultingProducts() {
-  const [products, setProducts] = useState<Product[]>([]);
+export function ConsultingCategories() {
+  const [Categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const  { user } = useUser();
   
-  const userId = user?.id; 
   
-  const fetchProducts = async () => {
+  const fetchCategories = async () => {
     try {
-      console.log('waiting for you')
-      console.log(userId);
+      
 
-      if(user?.id){
-        console.log('waiting for you baby')
+      const fetchedCategories = await getAllCategories();
+      if (fetchedCategories) {
+        setCategories(fetchedCategories);
 
-      const fetchedProducts = await getProducts(user.id);
-      if (fetchedProducts) {
-        setProducts(fetchedProducts);
+        console.log('categories fetched',)
 
-        console.log('aaaaa',products)
-
-      }
       }
       
+      
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error("Error fetching Categories:", error);
     } finally {
       setIsLoading(false);
     }
@@ -63,32 +58,25 @@ export function ConsultingProducts() {
 
 
   useEffect(() => {
-    fetchProducts();
+    fetchCategories();
     console.log('waiting')
-  }, [user]);
+  }, []);
 
-  const deleteProduct = async (productId: string) => {
+  const deleteCateg = async (categoryId: string) => {
     try {
-      await deleteProductById(productId);
-      await fetchProducts(); // Update product list after deleting
+      await deleteCategById(categoryId);
+      await fetchCategories(); // Update category list after deleting
     } catch (error) {
-      console.error("Error deleting product:", error);
+      console.error("Error deleting category:", error);
     }
   };
-  const updateProductsAfterEdit = async () => {
-    await fetchProducts(); 
+  const updateCategoriesAfterEdit = async () => {
+    await fetchCategories(); 
     // Update product list after editing
   };
-  const productsRef = useRef<HTMLDivElement>(null);
+  const CategoriesRef = useRef<HTMLDivElement>(null);
 
-  const scrollToAddProducts = () => {
-    if (productsRef.current) {
-      productsRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-  function alertNoProducts(){
-    alert('No Products Found !')
-  }
+  
   return (
     <>
       {isLoading ? (
@@ -104,7 +92,7 @@ export function ConsultingProducts() {
       </div>
       <Input
         className="w-full rounded-md bg-white px-8 py-2 pl-8 text-sm shadow-sm transition-colors focus:outline-none focus:ring-1 focus:ring-gray-900 dark:bg-gray-800 dark:text-black-50 dark:focus:ring-gray-300"
-        placeholder="Search Products..."
+        placeholder="Search Categories..."
         type="search"
       />
     </div>
@@ -116,41 +104,28 @@ export function ConsultingProducts() {
           <Table className="w-full table-auto">
             <TableHeader className="bg-gray-100 text-gray-600 font-medium">
               <TableRow>
-                <TableHead>Image</TableHead>
+              <TableHead></TableHead>
+                <TableHead>Id</TableHead>
                 <TableHead>Name</TableHead>
-                <TableHead>Description</TableHead>
-                <TableHead>Price</TableHead>
-                <TableHead>Quantity</TableHead>
-                <TableHead>Specifications</TableHead>
+                <TableHead></TableHead>
                 <TableHead></TableHead>
 
               </TableRow>
             </TableHeader>
               
                <TableBody className="divide-y divide-gray-200">
-  {products.slice(0, 5).map((product, index) => (
+  {Categories.map((category, index) => (
     <TableRow key={index}>
-      <TableCell>
-        {product.images.map((image, i) => (
-          <img
-            key={i}
-            alt="Product Image"
-            className="aspect-square object-cover"
-            height={100}
-            src={image}
-            width={100}
-          />
-        ))}
-      </TableCell>
-      <TableCell className="font-medium">{product.title}</TableCell>
-      <TableCell>{product.description}</TableCell>
-      <TableCell>{product.price}</TableCell>
-      <TableCell>{product.quantity}</TableCell>
-      <TableCell>{product.specifications}</TableCell>
+            <TableCell></TableCell>
+
+      <TableCell className="font-medium">{category.id}</TableCell>
+      
+      <TableCell>{category.categoryname}</TableCell>
+      <TableCell></TableCell>
       <TableCell>
         <div className="flex gap-2">
-          <EditButton product={product} onProductUpdate={updateProductsAfterEdit}/>
-          <Button onClick={() => deleteProduct(product.id)} size="sm" variant="destructive">
+          <EditButtonCateg category={category} onCategoryUpdate={updateCategoriesAfterEdit}/>
+          <Button onClick={() => deleteCateg(category.id)} size="sm" variant="destructive">
             <TrashIcon className="h-4 w-4" />
             Delete
           </Button>
@@ -165,8 +140,8 @@ export function ConsultingProducts() {
           </Table>
           </div>
           </div>
-          <div ref={productsRef}>
-            <Cproduct />
+          <div ref={CategoriesRef}>
+            <Ccateg />
           </div>
         </div>
       )}

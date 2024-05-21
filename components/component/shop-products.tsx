@@ -86,7 +86,7 @@ export function ShopProducts({ shopId }: Props) {
 };
   return (
     <main className="w-full max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-16 lg:py-20">
-      <BannerProd src={shop?.banner ?? "fallback-banner-src"}/>
+      <BannerProd src={shop?.banner ?? "/bannerPLaceHolder.png"}/>
       <br></br>
       <div className="grid gap-6 md:gap-8">
       <div className="flex justify-center items-center ">
@@ -104,20 +104,21 @@ export function ShopProducts({ shopId }: Props) {
   </div>
 </div>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products.map((product, index) => (
-          <div className="bg-white rounded-lg shadow-md overflow-hidden" key={index}>
-            <ImagesSlide images={product.images} ></ImagesSlide>
-            <div className="p-4">
-              <h3 className="text-lg font-semibold mb-2">{product.title}</h3>
-              <p className="text-gray-500 mb-4">${product.price}</p>
-              <Button onClick={()=>addProductToCart(product)} className="w-full" size="sm">
-                Add to Cart
-              </Button>
-            </div>
-          </div>
-        ))}
+<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+  {products.map((product, index) => (
+    <div className="bg-gray-900 rounded-lg shadow-md overflow-hidden  border-gray-900" key={index}>
+      <ImagesSlide images={product.images} />
+      <div className="p-4 bg-gray-900 border-t border-gray-900">
+        <h3 className="text-lg text-white font-semibold mb-2">{product.title}</h3>
+        <p className="text-white mb-4">${product.price}</p>
+        <Button onClick={() => addProductToCart(product)} className="w-full" size="sm">
+          Add to Cart
+        </Button>
       </div>
+    </div>
+  ))}
+</div>
+
     
     </div>
     </main>

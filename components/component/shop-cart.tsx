@@ -4,7 +4,7 @@
 * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
 */
 
-import { JSX, SVGProps, useContext, useEffect, useState } from "react"
+import { JSX, SVGProps, useContext } from "react"
 import { MyContext } from "./context";
 
 /** Add fonts into your Next.js project:

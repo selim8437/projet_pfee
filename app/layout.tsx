@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <ClerkProvider
     >
-    <html lang="en">
+    <html className='bg-gray-900' lang="en">
     <NextSSRPlugin
           /**
            * The `extractRouterConfig` will extract **only** the route configs

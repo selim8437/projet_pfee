@@ -1,9 +1,10 @@
-import { ConsultingProductsAdmin } from "@/components/component/consulting-products-admin";
+
+import { ConsultingUsers } from "@/components/component/consulting-users";
 
  
 export default async function Page(){
   
     return (
-    <ConsultingProductsAdmin/>
+    <ConsultingUsers/>
   );
 }

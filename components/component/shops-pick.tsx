@@ -51,7 +51,7 @@ export function ShopsPick() {
     console.log('waiting')
   }, []);
   return (
-    <main className="w-full max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-16 lg:py-20">
+    <main className=" bg-gray-900 w-full max-w-6xl  mx-auto px-4 md:px-6 py-12 md:py-16 lg:py-20">
       <div className="grid gap-6 md:gap-8">
       <div className="flex justify-center items-center ">
   <div className="w-full max-w-screen-lg">
@@ -68,7 +68,7 @@ export function ShopsPick() {
   </div>
 </div>
 
-<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+<div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
   {shops.slice(0, 20).map((shop, index) => (
     <div key={index} className="text-center relative">
       <Link href={`/shop/products/${shop.id}`}>
@@ -81,7 +81,7 @@ export function ShopsPick() {
         
       </Link>
       <Link href={`/shop/products/${shop.id}`}>
-            <Button className="mt-6 bg-black" >{shop.name}</Button> {/* Increased margin-top */}
+            <Button className="mt-6 bg-gray-900" >{shop.name}</Button> {/* Increased margin-top */}
           </Link>
 
     </div>

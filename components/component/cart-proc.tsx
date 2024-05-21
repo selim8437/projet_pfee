@@ -26,6 +26,7 @@ import { Label } from "../ui/label";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
 import { Input } from "../ui/input";
 import { MyContext } from "./context";
+import Link from "next/link";
 
 export function CartProc() {
   const [storedData, setStoredData] = useState<Product[] >([]); // State to store retrieved data
@@ -34,7 +35,7 @@ export function CartProc() {
   const [payment,setPayment]=useState<string>('cash') ;
   const [shippingMethod,setShippingMethod]=useState<string>('truck');
   const [adress,setAdress]=useState<string>('') ;
-
+  const [currentShop,setCurrentShop]=useState<string>('');
   const clearStoreData = ()=>{
     setStoredData([]) ;
     sessionStorage.removeItem('myData');
@@ -56,9 +57,13 @@ export function CartProc() {
   useEffect(() => {
       // Retrieve data from sessionStorage on component mount
       const data = sessionStorage.getItem('myData');
+      const CurrentShop =sessionStorage.getItem('CurrentShop') ;
       if (data) {
         setStoredData(JSON.parse(data) as Product[]);
         console.log('Data retrieved from sessionStorage:', data);
+      }
+      if (CurrentShop) {
+        setCurrentShop(CurrentShop);
       }
 
   }, []);
@@ -72,10 +77,13 @@ export function CartProc() {
   return (
     <div className=" bg-white dark:bg-gray-950 rounded-lg shadow-md p-6 max-w-3xl mx-auto">
       <div className="flex flex-col gap-6">
+        
         <div className="grid gap-4">
           <div className="flex items-center justify-between">
+          <Link href={`/shop/products/${currentShop}`}><Button className=" bg-black text-white ">Return to shopping</Button></Link>
+
             <h2 className="text-2xl font-bold">Shopping Cart</h2>
-            <Button onClick={clearStoreData} className=" text-white " >
+            <Button onClick={clearStoreData} className=" bg-black text-white " >
               Clear Cart
             </Button>
           </div>
@@ -128,7 +136,7 @@ export function CartProc() {
                   htmlFor="card"
                 >
                   <CreditCardIcon className="mb-3 h-6 w-6" />
-                  Credit Card
+                  Online payment
                 </Label>
               </div>
               <div>
@@ -210,6 +218,12 @@ export function CartProc() {
                 Address
               </Label>
               <Input id="address" placeholder="Enter your address" onChange={()=>setAdress}/>
+            </div>  
+            <div className="flex items-center justify-between">
+              <Label className="text-gray-500 dark:text-gray-400" htmlFor="address">
+                Phone number
+              </Label>
+              <Input id="address" placeholder="Enter your phone number" onChange={()=>setAdress}/>
             </div>  
             
              

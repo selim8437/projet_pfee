@@ -1,18 +1,15 @@
 'use server';
-import { z } from 'zod';
 import { sql } from '@vercel/postgres';
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
-import { error } from 'console';
+
 import { unstable_noStore as noStore } from 'next/cache';
 import { Store } from './types/store';
 
 
-export async function createStore(id:string ,name:string ,logo:string ,banner:string ,description:string,categoryId:string ,userId:string | null,verifUrl:string,verifState:string){
+export async function createStore(store:Store){
     try {
         await sql`
           INSERT INTO stores 
-          VALUES (${id}, ${name}, ${logo}, ${banner},${description}, ${categoryId}, ${userId},${verifUrl},${verifState},' ')
+          VALUES (${store.id}, ${store.name}, ${store.logo}, ${store.banner},${store.description}, ${store.categoryId}, ${store.userId},${store.verifUrl},${store.verifState},${store.shippingOptions,store.returnPolicies})
         `;
       } catch (error) {
         // If a database error occurs, return a more specific error.
@@ -146,7 +143,7 @@ export async function getAllStores(){
 export async function deleteStoreById(id:string){
     try {
         await sql`
-          DELETE * FROM stores WHERE id= ${id} ;
+          DELETE FROM stores WHERE id= ${id} ;
         `;
       } catch (error) {
         // If a database error occurs, return a more specific error.

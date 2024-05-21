@@ -119,19 +119,19 @@ export function EditButtonStore({ store, onStoreUpdate }: { store: Store, onStor
             </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label className="text-right" htmlFor="email">
-              Email
+              Description
             </Label>
-            <Input className="col-span-3" value={description} onChange={(e) => setDescription(e.target.value)} id="description"  />
+            <Textarea className="col-span-3" value={description} onChange={(e) => setDescription(e.target.value)} id="description"  />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label className="text-right" htmlFor="storeId">
-              StoreId
+              VerifState
             </Label>
             <Input className="col-span-3" value={verifState} onChange={(e) => setVerifState(e.target.value)} id="storeId"  />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label className="text-right" htmlFor="price">
-              Type
+              Shipping options
             </Label>
             <Textarea className="col-span-3" value={shippingOptions} onChange={(e) => setShippingOptions(e.target.value)} id="type"  />
           </div>

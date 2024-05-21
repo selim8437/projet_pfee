@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const [num, setNum] = useState('0');
   const value = { num, setNum };
   return (
-    <div>
+    <div className='bg-gray-900'>
       <MyContext.Provider value={value}>
         <ShopLayout />
         <div>{children}</div>
