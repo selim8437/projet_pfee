@@ -56,10 +56,10 @@ export function Ccateg() {
   };
   return (
     <div className="max-w-2xl mx-auto p-6 md:p-8 lg:p-10">
-      <div className="space-y-6">
+      <div className="space-y-6 text-white">
         <div>
-          <h1 className="text-3xl font-bold">Create a new category</h1>
-          <p className="text-gray-500 dark:text-gray-400">Fill out the form to add a new category .</p>
+          <h1 className="text-3xl  font-bold">Create a new category</h1>
+          <p className=" text-gray-400">Fill out the form to add a new category .</p>
         </div>
         <form className="grid gap-6" onSubmit={handleSubmit}>
           <div className="grid gap-2">
@@ -73,7 +73,7 @@ export function Ccateg() {
 />
           </div>
                     
-        <Button className="w-full" type="submit">
+        <Button className="w-full bg-teal-500" type="submit">
             Create Category
           </Button>
         </form>

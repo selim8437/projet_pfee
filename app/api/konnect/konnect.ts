@@ -16,7 +16,14 @@ export interface PaymentResponse {
   // Add other response fields if needed
 }
 
-
+export interface PaymentDetailsResponse {
+  status: string;
+  amount: number;
+  token: string;
+  createdAt: string;
+  orderId: string;
+  // Add other necessary fields according to the API documentation
+}
 
 export interface InitiatePaymentRequest {
   receiverWalletId: string;
@@ -52,5 +59,22 @@ export const initiatePayment = async (initiatePaymentRequest: InitiatePaymentReq
     return response.data.payUrl;
   } catch (error:any) {
     throw new Error(`Error initiating payment: ${error.message}`);
+  }
+};
+export const getPaymentDetails = async (paymentId: string): Promise<PaymentDetailsResponse> => {
+  try {
+    const response: AxiosResponse<any> = await axios.get(`${BASE_URL}/payments/${paymentId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    // Extract only the necessary fields
+    const { status, amount, token, createdAt, orderId } = response.data.payment;
+    const paymentDetails: PaymentDetailsResponse = { status, amount, token, createdAt, orderId };
+    console.log(paymentDetails);
+    return paymentDetails;
+  } catch (error: any) {
+    throw new Error(`Error retrieving payment details: ${error.message}`);
   }
 };

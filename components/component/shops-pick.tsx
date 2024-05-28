@@ -32,8 +32,17 @@ import { getAllStores } from "@/app/lib/stores";
 import { SearchIcon } from "lucide-react";
 import { Input } from "../ui/input";
 import { ProfileLogo } from "./profile-logo";
+import { useUser } from "@clerk/nextjs";
 
 export function ShopsPick() {
+  const {user}=useUser() ;
+  const userId = user?.id; // Get the user ID or undefined if user is null/undefined
+  useEffect(()=>{
+    if (user?.id) {
+      sessionStorage.setItem('userId',user.id) ;
+    }
+
+  },[user])
   const [shops, setShops] = useState<Store[]>([]);
   const fetchShops = async () => {
     try {

@@ -22,11 +22,11 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
-import ImageUpload from "@/app/ui/uploader"
 import { JSX, SVGProps, useEffect, useState } from "react"
 import { Product } from "@/app/lib/types/prduct"
 import { createProduct } from "@/app/lib/products"
 import { useUser } from "@clerk/nextjs"
+import ButtonUpload from "@/app/ui/uploader-button";
 
 
 export function Cproduct() {
@@ -77,12 +77,12 @@ export function Cproduct() {
   };
   return (
     <div className="max-w-2xl mx-auto p-6 md:p-8 lg:p-10">
-      <div className="space-y-6">
+      <div className="space-y-6 text-white">
         <div>
           <h1 className="text-3xl font-bold">Create a new product</h1>
-          <p className="text-gray-500 dark:text-gray-400">Fill out the form to add a new product to your store.</p>
+          <p className="text-gray-400">Fill out the form to add a new product to your store.</p>
         </div>
-        <form className="grid gap-6" onSubmit={handleSubmit}>
+        <form className="grid gap-6 " onSubmit={handleSubmit}>
           <div className="grid gap-2">
             <Label htmlFor="name">Product Name</Label>
             <Input id="name" placeholder="Enter product name"     onChange={(e) => setTitle(e.target.value)}
@@ -117,7 +117,7 @@ export function Cproduct() {
               {images.map((image, index) => (
                 <div key={index} className="relative group">
                   {test[index]?(
-                <ImageUpload onImageUrlChange={(a) => handleImageUrlChange(a, index)}></ImageUpload>
+                <ButtonUpload onImageUrlChange={(a) => handleImageUrlChange(a, index)}></ButtonUpload>
                   ):(
                   <div>
                     <img
@@ -136,7 +136,7 @@ export function Cproduct() {
               </div>
             </div>
           </div>
-          <Button className="w-full" type="submit">
+          <Button className="w-full bg-teal-500" type="submit">
             Create Product
           </Button>
         </form>

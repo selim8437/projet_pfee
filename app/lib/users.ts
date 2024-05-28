@@ -73,15 +73,24 @@ export async function updateStore(id:string ,storeId:string ,type:string ,email:
 
 export async function getUserByid(id:string ){
     try {
-        await sql`
+        const result=await sql`
           SELECT * FROM users WHERE id= ${id} ;
          
-        `;
+        `
+        const row=result.rows[0] ;
+        const user: User ={
+          id: row.id,
+          lastName: row.lastname,
+          firstName: row.firstname,
+          email: row.email,
+          storeid: row.storeid,
+          type: row.type
+         
+        };
+        return user ;
       } catch (error) {
         // If a database error occurs, return a more specific error.
-        return {
-          message: 'Database Error: Failed to get User.',
-        };
+        console.log('eroorro in getting user from database')
       }
 }
 export async function getAllUsers(){

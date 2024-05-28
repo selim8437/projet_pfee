@@ -20,22 +20,34 @@ To read more about using these font, please visit the Next.js documentation:
 "use client";
 import { Button } from "@/components/ui/button"
 import { Product } from "@/app/lib/types/prduct"
-import { useContext, useEffect, useState } from "react";
+import { JSX, SVGProps, useContext, useEffect, useState } from "react";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
 import { Input } from "../ui/input";
 import { MyContext } from "./context";
 import Link from "next/link";
+import InitPay from "./initiate-pay-button";
+import { createOrder } from "@/app/lib/orders";
+import { Cart } from "@/app/lib/types/cart";
+import { v4 } from 'uuid';
+import { redir } from "@/app/lib/actions";
+
 
 export function CartProc() {
   const [storedData, setStoredData] = useState<Product[] >([]); // State to store retrieved data
   const [totalPrice, setTotalPrice] = useState<number>(0); // State to store total price
   const [region,setRegion]=useState<string>('tunis') ;
-  const [payment,setPayment]=useState<string>('cash') ;
-  const [shippingMethod,setShippingMethod]=useState<string>('truck');
+  const [paymentMethod,setPayment]=useState<string>('Card') ;
+  const [shippingMethod,setShippingMethod]=useState<string>('Standard');
   const [adress,setAdress]=useState<string>('') ;
+  const [phone,setPhone]=useState<string>('') ;
+  const [sellerId,setSellerId]=useState<string>('');
+  const [buyerId,setBuyerId]=useState<string>('');
+  const [productsIds,setProductIds]=useState<string[]>([]);
   const [currentShop,setCurrentShop]=useState<string>('');
+  const [orderId,setOrderId]=useState<string>('') ;
+  
   const clearStoreData = ()=>{
     setStoredData([]) ;
     sessionStorage.removeItem('myData');
@@ -53,7 +65,10 @@ export function CartProc() {
     sessionStorage.setItem('myData', JSON.stringify(updatedData));
     setNum(updatedData.length.toString());
   };
-
+  useEffect(() => {
+    const productIds1 =storedData.map(product => product.id);
+    setProductIds(productIds1);
+  },[storedData])
   useEffect(() => {
       // Retrieve data from sessionStorage on component mount
       const data = sessionStorage.getItem('myData');
@@ -64,6 +79,7 @@ export function CartProc() {
       }
       if (CurrentShop) {
         setCurrentShop(CurrentShop);
+        setSellerId(CurrentShop);
       }
 
   }, []);
@@ -72,7 +88,14 @@ export function CartProc() {
     const price = storedData.reduce((sum, product) => sum + Number(product.price), 0);
     setTotalPrice(price);
   }, [storedData]);
+
   const handleSubmit=()=>{
+    console.log('its happenign');
+    const cart:Cart={totalPrice,region,shippingMethod,adress,phone,buyerId,sellerId,paymentMethod,productsIds} ;
+    const sa:string=v4() ;
+    setOrderId(sa);
+    createOrder(cart,sa);
+    redir('/shop/orders/'+sa) ;
   }
   return (
     <div className=" bg-white dark:bg-gray-950 rounded-lg shadow-md p-6 max-w-3xl mx-auto">
@@ -128,15 +151,15 @@ export function CartProc() {
             <span className="font-medium">${totalPrice}</span>
           </div>
           <div className="grid gap-2">
-            <RadioGroup className="grid grid-cols-2 gap-4" defaultValue={payment} onChange={()=>setPayment}>
+            <RadioGroup className="grid grid-cols-2 gap-4" defaultValue={paymentMethod} onValueChange={setPayment}>
               <div>
-                <RadioGroupItem className="peer sr-only" id="card" value="card" />
+                <RadioGroupItem className="peer sr-only" id="Card" value="Card" />
                 <Label
                   className="flex flex-col items-center justify-between rounded-md border-2 border-gray-100 bg-white p-4 hover:bg-gray-100 hover:text-gray-900 peer-data-[state=checked]:border-gray-900 [&:has([data-state=checked])]:border-gray-900 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:peer-data-[state=checked]:border-gray-50 dark:[&:has([data-state=checked])]:border-gray-50"
-                  htmlFor="card"
+                  htmlFor="Card"
                 >
                   <CreditCardIcon className="mb-3 h-6 w-6" />
-                  Online payment
+                  Card
                 </Label>
               </div>
               <div>
@@ -152,22 +175,22 @@ export function CartProc() {
             </RadioGroup>
           </div>
           <div className="grid gap-2">
-            <RadioGroup className="grid grid-cols-2 gap-4" defaultValue={shippingMethod} onChange={()=>setShippingMethod}>
+            <RadioGroup className="grid grid-cols-2 gap-4" defaultValue={shippingMethod} onValueChange={setShippingMethod}>
               <div>
-                <RadioGroupItem className="peer sr-only" id="truck" value="truck" />
+                <RadioGroupItem className="peer sr-only" id="Standard" value="Standard" />
                 <Label
                   className="flex flex-col items-center justify-between rounded-md border-2 border-gray-100 bg-white p-4 hover:bg-gray-100 hover:text-gray-900 peer-data-[state=checked]:border-gray-900 [&:has([data-state=checked])]:border-gray-900 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:peer-data-[state=checked]:border-gray-50 dark:[&:has([data-state=checked])]:border-gray-50"
-                  htmlFor="truck"
+                  htmlFor="Standard"
                 >
                   <TruckIcon className="mb-3 h-6 w-6" />
                   Standard shipping
                 </Label>
               </div>
               <div>
-                <RadioGroupItem className="peer sr-only" id="rocket" value="rocket" />
+                <RadioGroupItem className="peer sr-only" id="Express" value="Express" />
                 <Label
                   className="flex flex-col items-center justify-between rounded-md border-2 border-gray-100 bg-white p-4 hover:bg-gray-100 hover:text-gray-900 peer-data-[state=checked]:border-gray-900 [&:has([data-state=checked])]:border-gray-900 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:peer-data-[state=checked]:border-gray-50 dark:[&:has([data-state=checked])]:border-gray-50"
-                  htmlFor="rocket"
+                  htmlFor="Express"
                 >
                   <RocketIcon className="mb-3 h-6 w-6" />
                   Express shipping
@@ -178,9 +201,9 @@ export function CartProc() {
           <div className="grid gap-2">
             <div className="flex items-center justify-between">
               <span className="text-gray-500 dark:text-gray-400">Region</span>
-              <Select>
+              <Select  onValueChange={setRegion}>
                 <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select a region" defaultValue={region} onChange={()=>setRegion} />
+                  <SelectValue placeholder="Select a region" defaultValue={region} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
@@ -217,25 +240,26 @@ export function CartProc() {
               <Label className="text-gray-500 dark:text-gray-400" htmlFor="address">
                 Address
               </Label>
-              <Input id="address" placeholder="Enter your address" onChange={()=>setAdress}/>
+              <Input id="address" placeholder="Enter your address" onChange={(e)=>setAdress(e.target.value)}/>
             </div>  
             <div className="flex items-center justify-between">
               <Label className="text-gray-500 dark:text-gray-400" htmlFor="address">
                 Phone number
               </Label>
-              <Input id="address" placeholder="Enter your phone number" onChange={()=>setAdress}/>
+              <Input id="address" placeholder="Enter your phone number" onChange={(e)=>setPhone(e.target.value)}/>
             </div>  
-            
+            <Button onClick={handleSubmit} className='bg-black text-white w-full' >Submit order</Button>
              
           </div>
-          <Button className=" bg-black text-white w-full" onClick={handleSubmit}>Proceed to Checkout</Button>
+                   
+        
         </div>
       </div>
     </div>
   )
 }
 
-function MinusIcon(props) {
+function MinusIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -254,7 +278,7 @@ function MinusIcon(props) {
   )
 }
 
-function CreditCardIcon(props) {
+function CreditCardIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -275,7 +299,7 @@ function CreditCardIcon(props) {
 }
 
 
-function DollarSignIcon(props) {
+function DollarSignIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -295,7 +319,7 @@ function DollarSignIcon(props) {
   )
 }
 
-  function RocketIcon(props) {
+  function RocketIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
     return (
       <svg
         {...props}
@@ -316,7 +340,7 @@ function DollarSignIcon(props) {
       </svg>
     )
   }
-  function TruckIcon(props) {
+  function TruckIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
     return (
       <svg
         {...props}
@@ -338,4 +362,8 @@ function DollarSignIcon(props) {
       </svg>
     )
   }
+
+function uuidv4(): string {
+  throw new Error("Function not implemented.");
+}
 

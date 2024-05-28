@@ -21,29 +21,28 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { JSX, SVGProps } from "react"
 import NavLinks from "@/app/ui/dashboard/nav-links"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card"
+import { Badge } from "../ui/badge"
 
 export function DashboardLayout() {
   return (
-    <div className="border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
-      <div className="flex h-full max-h-screen flex-col gap-2">
-        <div className="flex h-[60px] items-center border-b px-6">
-          <Link className="flex items-center gap-2 font-semibold" href="#">
-            <Package2Icon className="h-6 w-6" />
-            <span className="">Acme Inc</span>
-          </Link>
-          <Button className="ml-auto h-8 w-8" size="icon" variant="outline">
-            <BellIcon className="h-4 w-4" />
-            <span className="sr-only">Toggle notifications</span>
-          </Button>
-        </div>
-        <div className="flex-1 overflow-auto py-2">
-          <nav className="grid items-start px-4 text-sm font-medium">
+    <div >
+          <div className="flex h-[60px] items-center border-b px-6">
+            <Link className="flex items-center gap-2 text-white no-underline text-lg font-bold" href="#">
+              <MountainIcon className="h-6 w-6" />
+              <span >Multivendor</span>
+            </Link>
+            <Button className="ml-auto h-8 w-8" size="icon" variant="outline">
+              <BellIcon className="h-4 w-4" />
+              <span className="sr-only">Toggle notifications</span>
+            </Button>
+          </div>
+          <div className="flex-1  py-2">
             <NavLinks/>
-          </nav>
+          </div>
+          
         </div>
-        
-      </div>
-    </div>
+       
   )
 }
 
@@ -195,6 +194,24 @@ function UsersIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
       <circle cx="9" cy="7" r="4" />
       <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
       <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </svg>
+  )
+}
+export function MountainIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
     </svg>
   )
 }

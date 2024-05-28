@@ -102,6 +102,8 @@ export function ConsultingCategories() {
           <div className="mx-auto px-8 py-16">
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
           <Table className="w-full table-auto">
+          <div className="h-96 overflow-y  ">
+
             <TableHeader className="bg-gray-100 text-gray-600 font-medium">
               <TableRow>
               <TableHead></TableHead>
@@ -109,6 +111,20 @@ export function ConsultingCategories() {
                 <TableHead>Name</TableHead>
                 <TableHead></TableHead>
                 <TableHead></TableHead>
+                <TableHead></TableHead>
+                <TableHead></TableHead>
+                <TableHead></TableHead>
+                <TableHead></TableHead>
+                <TableHead></TableHead>
+                <TableHead></TableHead>
+                <TableHead></TableHead>
+                <TableHead></TableHead>
+                <TableHead></TableHead>
+                <TableHead></TableHead>
+                <TableHead></TableHead>
+                <TableHead></TableHead>
+                <TableHead></TableHead>
+
 
               </TableRow>
             </TableHeader>
@@ -122,6 +138,17 @@ export function ConsultingCategories() {
       
       <TableCell>{category.categoryname}</TableCell>
       <TableCell></TableCell>
+      <TableCell></TableCell>
+      <TableCell></TableCell>
+      <TableCell></TableCell>
+      <TableCell></TableCell>
+      <TableCell></TableCell>
+      <TableCell></TableCell>
+      <TableCell></TableCell>
+      <TableCell></TableCell>
+      <TableCell></TableCell>
+      <TableCell></TableCell>
+
       <TableCell>
         <div className="flex gap-2">
           <EditButtonCateg category={category} onCategoryUpdate={updateCategoriesAfterEdit}/>
@@ -135,7 +162,7 @@ export function ConsultingCategories() {
   ))}
 </TableBody>
 
-
+</div>
               
           </Table>
           </div>

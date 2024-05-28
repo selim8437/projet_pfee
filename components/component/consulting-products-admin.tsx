@@ -105,6 +105,8 @@ export function ConsultingProductsAdmin() {
           <div className="mx-auto px-8 py-16">
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
           <Table className="w-full table-auto">
+          <div className="h-128 overflow-y-auto">
+
             <TableHeader className="bg-gray-100 text-gray-600 font-medium">
               <TableRow>
                 <TableHead>Image</TableHead>
@@ -119,7 +121,7 @@ export function ConsultingProductsAdmin() {
             </TableHeader>
               
                <TableBody className="divide-y divide-gray-200">
-  {products.slice(0, 5).map((product, index) => (
+  {products.map((product, index) => (
     <TableRow key={index}>
       <TableCell>
         {product.images.map((image, i) => (
@@ -152,7 +154,7 @@ export function ConsultingProductsAdmin() {
 </TableBody>
 
 
-              
+              </div>
           </Table>
 </div>
 </div>

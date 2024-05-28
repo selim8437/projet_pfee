@@ -106,8 +106,9 @@ export function ConsultingUsers() {
 </div>
           
          <div className="mx-auto px-8 py-16">
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          <Table className="w-full table-auto">
+      <div className="bg-white rounded-lg shadow-md w-full overflow-x-auto">
+          <Table className="w-full table-auto ">
+            <div className="h-96 overflow-y-auto">
             <TableHeader className="bg-gray-100 text-gray-600 font-medium">
               <TableRow>
                 <TableHead>Id</TableHead>
@@ -117,12 +118,14 @@ export function ConsultingUsers() {
                 <TableHead>Type</TableHead>
                 <TableHead>storeId</TableHead>
                 <TableHead></TableHead>
+                <TableHead></TableHead>
+                <TableHead></TableHead>
 
               </TableRow>
             </TableHeader>
               
-               <TableBody>
-  {users.slice(0, 5).map((user, index) => (
+               <TableBody >
+  {users.map((user, index) => (
     <TableRow key={index}>
      
       <TableCell className="font-medium">{user.id}</TableCell>
@@ -144,6 +147,7 @@ export function ConsultingUsers() {
     </TableRow>
   ))}
 </TableBody>
+</div>
 
 
               

@@ -150,7 +150,7 @@ export default function StoreCustomization() {
       <div><DashboardSkeleton/></div>
     ) : (
     <div>
-     <div className="container  px-8 py-12 md:px-8 lg:px-10">
+     <div >
       <div className="flex justify-center">
         <div className="grid gap-8 md:grid-cols-3 lg:grid-cols-3 w-full max-w-4xl">
           {/* Store Name */}

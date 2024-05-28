@@ -2,8 +2,8 @@ import type { Config } from "tailwindcss"
 import { withUt } from "uploadthing/tw";
 
 const { fontFamily } = require("tailwindcss/defaultTheme")
+  export default withUt({
 
-const config = {
   darkMode: ["class"],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -21,6 +21,9 @@ const config = {
       },
     },
     extend: {
+      height:{
+        '128': '32rem',
+      },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
@@ -81,6 +84,5 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
 
-export default config
+});

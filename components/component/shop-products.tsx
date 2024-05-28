@@ -79,6 +79,7 @@ export function ShopProducts({ shopId }: Props) {
     sessionStorage.setItem('myData', JSON.stringify(cart));
     setNum(cart.length.toString());
     console.log('Cart updated:'); // Log the updated cart
+    sessionStorage.setItem('num',cart.length.toString());
   },[cart])
   const addProductToCart = (product: Product) => {
     setCart(prevCart => [...prevCart, product]);

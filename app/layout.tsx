@@ -28,7 +28,7 @@ export default function RootLayout({
            */
           routerConfig={extractRouterConfig(ourFileRouter)}
         />
-    <body className={`${inter.variable} antialiased`}>{children}</body>
+    <body className={`${inter.variable} `}>{children}</body>
       
     </html>
     </ClerkProvider>

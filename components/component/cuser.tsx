@@ -26,6 +26,8 @@ import { JSX, SVGProps, useEffect, useState } from "react"
 
 import { User } from "@/app/lib/types/user";
 import { createUser } from "@/app/lib/users";
+import { SelectM } from "./select-m";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 
 export function Cuser() {
@@ -53,10 +55,10 @@ export function Cuser() {
   };
   return (
     <div className="max-w-2xl mx-auto p-6 md:p-8 lg:p-10">
-      <div className="space-y-6">
+      <div className="space-y-6 text-white">
         <div>
-          <h1 className="text-3xl font-bold">Create a new User</h1>
-          <p className="text-gray-500 dark:text-gray-400">Fill out the form to add a new user to the database.</p>
+          <h1 className="text-3xl  font-bold">Create a new User</h1>
+          <p className="text-gray-400">Fill out the form to add a new user .</p>
         </div>
         <form className="grid gap-6" onSubmit={handleSubmit}>
           <div className="grid gap-2">
@@ -75,19 +77,20 @@ export function Cuser() {
             <Input id="price" placeholder="Enter email"               onChange={(e) => setEmail(e.target.value)}
  />
           </div>
+          
           <div className="grid gap-2">
-            <Label htmlFor="storeId">storeId</Label>
-            <Input id="storeId" placeholder="Enter storeId"            onChange={(e) => setStoreId(e.target.value)}
- />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="specifications">type</Label>
-            <Input id="specifications" placeholder="Enter type"  onChange={(e) => setType(e.target.value)}
-/>
+         <select
+            value={type}
+            onChange={(e)=>setType(e.target.value)}
+            className="block w-full p-2 text-black border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          >
+            <option value="S">Seller</option>
+            <option value="B">Buyer</option>
+          </select>
           </div>
           
-          <Button className="w-full" type="submit">
-            Create Product
+          <Button className="w-full bg-teal-500 text-white" type="submit">
+            Create User
           </Button>
         </form>
       </div>

@@ -19,9 +19,9 @@ const ButtonUpload: React.FC<ImageUploadProps> = ({ onImageUrlChange }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-between">
+    <div className="flex flex-col items-center  justify-between">
        {test ? (
-    <UploadButton
+    <UploadButton className='ut-button:bg-teal-500'
     
     endpoint="imageUploader"
     onClientUploadComplete={handleUploadComplete}

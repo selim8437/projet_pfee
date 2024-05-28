@@ -19,7 +19,7 @@ To read more about using these font, please visit the Next.js documentation:
 **/
 import Link from "next/link"
 
-export function SuccessPayment() {
+export function SuccessPayment({id}:{id:string}) {
   return (
     <div className="flex flex-col items-center justify-center min-h-[100dvh] bg-gray-100 dark:bg-gray-950 px-4 md:px-6">
       <div className="max-w-md w-full space-y-6">
@@ -31,7 +31,7 @@ export function SuccessPayment() {
           <p className="text-gray-500 dark:text-gray-400 mt-2 text-center">
             Thank you for your purchase! Your order will be shipped within 2-3 business days. You can view the order
             details
-            <Link className="text-blue-600 underline" href="#">
+            <Link className="text-blue-600 underline" href={"/shop/orders/"+id}>
               here
             </Link>
             .{"\n                "}

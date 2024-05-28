@@ -20,7 +20,7 @@ To read more about using these font, please visit the Next.js documentation:
 "use client";
 import Link from "next/link"
 import { ShopCart } from "./shop-cart"
-import { UserButton, UserProfile } from "@clerk/nextjs"
+import { UserButton } from "@clerk/nextjs"
 
 
 export function ShopLayout() {
@@ -32,15 +32,15 @@ export function ShopLayout() {
       <header className="bg-gray-900  py-4 px-6 md:px-8 flex items-center justify-between">
         <div className="flex  items-center space-x-6">
           <Link className="text-white no-underline text-lg font-bold" href="#">
-            Acme Store
+             Multivendor
           </Link>
           
           <nav className="hidden md:flex space-x-4">
             <Link className="text-white no-underline hover:text-gray-300" href="#">
               About
             </Link>
-            <Link className="text-white no-underline hover:text-gray-300" href="#">
-              Contact
+            <Link className="text-white no-underline hover:text-gray-300" href="/shop/orders/">
+              My orders
             </Link>
             <Link className="text-white no-underline hover:text-gray-300" href="/shop">
               Shops

@@ -56,7 +56,21 @@ export async function createInvoice(prevState: State, formData: FormData) {
     revalidatePath('/dashboard/invoices');
     redirect('/dashboard/invoices');
   }
-
+export async function redir(url:string){
+  revalidatePath(url);
+    redirect(url);
+}
+export async function getCurrentDateTimeString() {
+  const now = new Date();
+  
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so we add 1
+  const day = String(now.getDate()).padStart(2, '0');
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  
+  return `${year}-${month}-${day} ${hours}:${minutes}`;
+}
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 export async function updateInvoice(
     id: string,
