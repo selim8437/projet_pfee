@@ -15,7 +15,6 @@ export function EditButtonStore({ store, onStoreUpdate }: { store: Store, onStor
   const [banner, setBanner] = useState(store.banner);
   const [description, setDescription] = useState(store.description);
   const [categoryId, setCategoryId] = useState(store.categoryId);
-  const [userId, setUserId] = useState(store.userId);
   const [verifUrl, setVerifUrl] = useState(store.verifUrl);
   const [verifState, setVerifState] = useState(store.verifState);
   const [shippingOptions, setShippingOptions] = useState(store.shippingOptions);
@@ -46,7 +45,7 @@ export function EditButtonStore({ store, onStoreUpdate }: { store: Store, onStor
   
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
-    const updatedStore: Store = { id, name, logo, banner, description, categoryId,userId,verifUrl,verifState,shippingOptions,returnPolicies };
+    const updatedStore: Store = { id, name, logo, banner, description, categoryId,verifUrl,verifState,shippingOptions,returnPolicies };
     updateStore(updatedStore)
       .then(() => {
         // Call the onStoreUpdate callback function after successful update

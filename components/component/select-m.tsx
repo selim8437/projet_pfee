@@ -24,7 +24,7 @@ export function SelectM() {
   return (
     <div className="grid w-full max-w-sm items-center gap-1.5">
       <Label htmlFor="select">Choose an option</Label>
-      <Select id="select">
+      <Select >
         <SelectTrigger className="w-full">
           <SelectValue placeholder="Select an option" />
         </SelectTrigger>

@@ -18,6 +18,7 @@ To read more about using these font, please visit the Next.js documentation:
 - Pages Directory: https://nextjs.org/docs/pages/building-your-application/optimizing/fonts
 **/
 import { CarouselItem, CarouselContent, CarouselPrevious, CarouselNext, Carousel } from "@/components/ui/carousel"
+import { JSX, SVGProps } from "react"
 
 export function ImagesSlide({ images }: { images: string [] }) {
 
@@ -51,7 +52,7 @@ export function ImagesSlide({ images }: { images: string [] }) {
   )
 }
 
-function ChevronLeftIcon(props) {
+function ChevronLeftIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -71,7 +72,7 @@ function ChevronLeftIcon(props) {
 }
 
 
-function ChevronRightIcon(props) {
+function ChevronRightIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}

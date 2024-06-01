@@ -18,6 +18,7 @@ To read more about using these font, please visit the Next.js documentation:
 - Pages Directory: https://nextjs.org/docs/pages/building-your-application/optimizing/fonts
 **/
 import Link from "next/link"
+import { JSX, SVGProps } from "react"
 
 export function Home() {
   return (
@@ -183,7 +184,7 @@ export function Home() {
   )
 }
 
-function HomeIcon(props) {
+function HomeIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -204,7 +205,7 @@ function HomeIcon(props) {
 }
 
 
-function LaptopIcon(props) {
+function LaptopIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -224,7 +225,7 @@ function LaptopIcon(props) {
 }
 
 
-function MountainIcon(props) {
+function MountainIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -244,7 +245,7 @@ function MountainIcon(props) {
 }
 
 
-function ShirtIcon(props) {
+function ShirtIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -264,7 +265,7 @@ function ShirtIcon(props) {
 }
 
 
-function TruckIcon(props) {
+function TruckIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}

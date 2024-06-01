@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import {  useEffect, useState } from "react";
 import { updateUser } from "@/app/lib/users";
 import { Dialog, DialogContent, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -16,8 +16,14 @@ export function EditButtonUser({ user, onUserUpdate }: { user: User, onUserUpdat
 
   // Initialize imageTest array with false values corresponding to images length
   const [storeid, setStoreId] = useState(user.storeid);
-
-  
+  const [storeidd, setStoreIdd] = useState('');
+  useEffect(()=>{
+    if(storeid===null){
+      setStoreIdd("") ;
+    }else{
+      setStoreIdd(storeid) ;
+    }
+  },[])
 
   const isEmptyString = (str: string): boolean => {
     return !str || str.trim().length === 0;
@@ -70,7 +76,7 @@ export function EditButtonUser({ user, onUserUpdate }: { user: User, onUserUpdat
             <Label className="text-right" htmlFor="storeId">
               StoreId
             </Label>
-            <Input className="col-span-3" value={storeid} onChange={(e) => setStoreId(e.target.value)} id="storeId"  />
+            <Input className="col-span-3" value={storeidd} onChange={(e) => setStoreId(e.target.value)} id="storeId"  />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label className="text-right" htmlFor="price">
