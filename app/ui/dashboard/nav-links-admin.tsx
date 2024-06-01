@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 const links = [
   { name: 'users', href: '/adminDashboard/content/', icon: UserGroupIcon },
   { name: 'categories', href: '/adminDashboard/content/categories/', icon: ArchiveBoxIcon },
+  { name: 'stores', href: '/adminDashboard/content/stores/', icon: ArchiveBoxIcon },
 
   {
     name: 'products',

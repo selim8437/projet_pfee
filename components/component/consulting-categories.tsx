@@ -34,7 +34,8 @@ import { Ccateg } from "./cCateg";
 export function ConsultingCategories() {
   const [Categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  
+  const [searchQuery, setSearchQuery] = useState(""); // State to store the search query
+
   
   const fetchCategories = async () => {
     try {
@@ -75,7 +76,14 @@ export function ConsultingCategories() {
     // Update product list after editing
   };
   const CategoriesRef = useRef<HTMLDivElement>(null);
-
+  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+  
+  // Filter the shops based on the search query
+  const filteredCategories= Categories.filter((category) =>
+    category.categoryname.toLowerCase().startsWith(searchQuery.toLowerCase())
+  );
   
   return (
     <>
@@ -94,6 +102,8 @@ export function ConsultingCategories() {
         className="w-full rounded-md bg-white px-8 py-2 pl-8 text-sm shadow-sm transition-colors focus:outline-none focus:ring-1 focus:ring-gray-900 dark:bg-gray-800 dark:text-black-50 dark:focus:ring-gray-300"
         placeholder="Search Categories..."
         type="search"
+        value={searchQuery}
+        onChange={handleSearchInputChange}
       />
     </div>
   </div>
@@ -130,7 +140,7 @@ export function ConsultingCategories() {
             </TableHeader>
               
                <TableBody className="divide-y divide-gray-200">
-  {Categories.map((category, index) => (
+  {filteredCategories.map((category, index) => (
     <TableRow key={index}>
             <TableCell></TableCell>
 

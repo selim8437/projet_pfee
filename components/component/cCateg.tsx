@@ -20,21 +20,16 @@ To read more about using these font, please visit the Next.js documentation:
 "use client";
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
-import ImageUpload from "@/app/ui/uploader"
-import { JSX, SVGProps, useEffect, useState } from "react"
-import { Product } from "@/app/lib/types/prduct"
-import { createProduct } from "@/app/lib/products"
-import { useUser } from "@clerk/nextjs"
+import { JSX, SVGProps, use, useEffect, useState } from "react"
+
 import { Category } from "@/app/lib/types/category";
 import { createCategory } from "@/app/lib/categories";
+import { v4 } from "uuid";
 
 
 export function Ccateg() {
-    const [id, setId] = useState('');
     const [categoryname, setCategoryName] = useState('');
-  
 
  
 
@@ -44,10 +39,11 @@ export function Ccateg() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const id:string=v4() ;
     const updatedCategory: Category = { id, categoryname};
     createCategory(updatedCategory)
       .then(() => {
-        // Call the onProductUpdate callback function after successful update
+        alert('Category added succesfully')
         onCategUpdate();
       })
       .catch((error) => {
@@ -59,17 +55,13 @@ export function Ccateg() {
       <div className="space-y-6 text-white">
         <div>
           <h1 className="text-3xl  font-bold">Create a new category</h1>
-          <p className=" text-gray-400">Fill out the form to add a new category .</p>
+          <p className=" ">Fill out the form to add a new category .</p>
         </div>
         <form className="grid gap-6" onSubmit={handleSubmit}>
-          <div className="grid gap-2">
-            <Label htmlFor="name">Category id</Label>
-            <Input id="name" placeholder='Enter category id'     onChange={(e) => setId(e.target.value)}
-/>
-          </div>
-          <div className="grid gap-2">
+          
+          <div className="grid gap-2 ">
             <Label htmlFor="name">Category name</Label>
-            <Input id="name" placeholder='Enter category name'     onChange={(e) => setCategoryName(e.target.value)}
+            <Input id="name" className="text-black" placeholder='Enter category name'     onChange={(e) => setCategoryName(e.target.value)}
 />
           </div>
                     

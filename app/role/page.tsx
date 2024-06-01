@@ -31,7 +31,7 @@ export default function RolePage() {
     }
     if(selectedOption=='B'){
        
-        redirecti('/');
+        redirecti('/shop/');
     }else{
         
         redirecti('/store');
@@ -59,7 +59,7 @@ export default function RolePage() {
         </label>
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+          className="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
         >
           Submit
         </button>

@@ -22,7 +22,7 @@ import Link from "next/link"
 
 export function FailurePayment() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[100dvh] bg-gray-100 dark:bg-gray-950 px-4 md:px-6">
+    <div className="flex flex-col items-center justify-center min-h-[100dvh] bg-gray-850 dark:bg-gray-950 px-4 md:px-6">
       <div className="max-w-md w-full space-y-6">
         <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-8 flex flex-col items-center">
           <div className="bg-red-500 dark:bg-red-600 rounded-full p-4">

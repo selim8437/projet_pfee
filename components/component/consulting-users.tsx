@@ -21,19 +21,18 @@ To read more about using these font, please visit the Next.js documentation:
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@/components/ui/table";
-import { EditButton } from "./edit-button";
 
 import { JSX, SVGProps, useEffect, useRef, useState } from "react";
 import DashboardSkeleton from "@/app/ui/skeletons";
-import { useUser } from "@clerk/nextjs";
 import { User } from "@/app/lib/types/user";
 import { deleteUserById, getAllUsers } from "@/app/lib/users";
 import { EditButtonUser } from "./edit-button-user";
-import { Cuser } from "./cuser";
 
 export function ConsultingUsers() {
   const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState(""); // State to store the search query
+
   
   
   const fetchUsers = async () => {
@@ -74,13 +73,15 @@ export function ConsultingUsers() {
     await fetchUsers(); 
     // Update user list after editing
   };
-  const UsersRef = useRef<HTMLDivElement>(null);
 
-  const scrollToAddUsers = () => {
-    if (UsersRef.current) {
-      UsersRef.current.scrollIntoView({ behavior: "smooth" });
-    }
+  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
   };
+  
+  // Filter the shops based on the search query
+  const filteredUsers= users.filter((user) =>
+    user.firstName.toLowerCase().startsWith(searchQuery.toLowerCase())
+  );
  
   return (
     <>
@@ -99,6 +100,8 @@ export function ConsultingUsers() {
         className="w-full rounded-md bg-white px-8 py-2 pl-8 text-sm shadow-sm transition-colors focus:outline-none focus:ring-1 focus:ring-gray-900 dark:bg-gray-800 dark:text-black-50 dark:focus:ring-gray-300"
         placeholder="Search Users..."
         type="search"
+        value={searchQuery}
+        onChange={handleSearchInputChange}
       />
     </div>
   </div>
@@ -106,9 +109,8 @@ export function ConsultingUsers() {
 </div>
           
          <div className="mx-auto px-8 py-16">
-      <div className="bg-white rounded-lg shadow-md w-full overflow-x-auto">
-          <Table className="w-full table-auto ">
-            <div className="h-96 overflow-y-auto">
+      <div className="h-86 bg-white rounded-lg shadow-md w-full overflow-x-auto">
+          <Table className=" w-full table-auto ">
             <TableHeader className="bg-gray-100 text-gray-600 font-medium">
               <TableRow>
                 <TableHead>Id</TableHead>
@@ -118,14 +120,12 @@ export function ConsultingUsers() {
                 <TableHead>Type</TableHead>
                 <TableHead>storeId</TableHead>
                 <TableHead></TableHead>
-                <TableHead></TableHead>
-                <TableHead></TableHead>
 
               </TableRow>
             </TableHeader>
               
                <TableBody >
-  {users.map((user, index) => (
+  {filteredUsers.map((user, index) => (
     <TableRow key={index}>
      
       <TableCell className="font-medium">{user.id}</TableCell>
@@ -147,16 +147,14 @@ export function ConsultingUsers() {
     </TableRow>
   ))}
 </TableBody>
-</div>
+
 
 
               
           </Table>
           </div>
           </div>
-          <div ref={UsersRef}>
-            <Cuser />
-          </div>
+          
         </div>
       )}
     </>

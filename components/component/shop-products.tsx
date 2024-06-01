@@ -40,6 +40,8 @@ export function ShopProducts({ shopId }: Props) {
   const [products, setProducts] = useState<Product[]>([]);
   const [cart, setCart] = useState<Product[]>([]);
   const [shop,setShop]=useState<Store | null>(null) ;
+  const [searchQuery, setSearchQuery] = useState(""); // State to store the search query
+
   const context = useContext(MyContext);
   if (!context) {
     throw new Error('MyComponent must be used within a MyProvider');
@@ -74,6 +76,8 @@ export function ShopProducts({ shopId }: Props) {
   useEffect(() => {
       fetchProducts();
       getStore();
+
+      
   }, [shopId]);
   useEffect(() =>{
     sessionStorage.setItem('myData', JSON.stringify(cart));
@@ -85,6 +89,14 @@ export function ShopProducts({ shopId }: Props) {
     setCart(prevCart => [...prevCart, product]);
    
 };
+const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  setSearchQuery(event.target.value);
+};
+
+// Filter the shops based on the search query
+const filteredProducts = products.filter((product) =>
+  product.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+);
   return (
     <main className="w-full max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-16 lg:py-20">
       <BannerProd src={shop?.banner ?? "/bannerPLaceHolder.png"}/>
@@ -100,13 +112,15 @@ export function ShopProducts({ shopId }: Props) {
         className="w-full rounded-md bg-white px-8 py-2 pl-8 text-sm shadow-sm transition-colors focus:outline-none focus:ring-1 focus:ring-gray-900 dark:bg-gray-800 dark:text-black-50 dark:focus:ring-gray-300"
         placeholder="Search products..."
         type="search"
+        value={searchQuery}
+        onChange={handleSearchInputChange}
       />
     </div>
   </div>
 </div>
       
 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-  {products.map((product, index) => (
+  {filteredProducts.map((product, index) => (
     <div className="bg-gray-900 rounded-lg shadow-md overflow-hidden  border-gray-900" key={index}>
       <ImagesSlide images={product.images} />
       <div className="p-4 bg-gray-900 border-t border-gray-900">

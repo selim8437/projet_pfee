@@ -3,25 +3,41 @@ import { sql } from '@vercel/postgres';
 
 import { unstable_noStore as noStore } from 'next/cache';
 import { Store } from './types/store';
+import { useUser } from '@clerk/nextjs';
 
 
-export async function createStore(store:Store){
+export async function createStore(store:Store,iduser:string){
     try {
         await sql`
           INSERT INTO stores 
-          VALUES (${store.id}, ${store.name}, ${store.logo}, ${store.banner},${store.description}, ${store.categoryId}, ${store.userId},${store.verifUrl},${store.verifState},${store.shippingOptions,store.returnPolicies})
+          VALUES (${store.id}, ${store.name}, ${store.logo}, ${store.banner},${store.description}, ${store.categoryId},${store.verifUrl},'pending',${store.shippingOptions},${store.returnPolicies})
         `;
+        console.log('store created successfully',store.id) ;
+        addStoreToUser(iduser,store.id);
       } catch (error) {
         // If a database error occurs, return a more specific error.
         console.log(error)
       }
+}
+export async function addStoreToUser(id:string,stId:string){
+  
+  try {
+      await sql`
+        UPDATE users 
+        SET storeid=${stId} WHERE id=${id} ;
+      `;
+      console.log('storeId updated successfully with user id : '+id+'and store id : '+stId) ;
+    } catch (error) {
+      // If a database error occurs, return a more specific error.
+      console.log(error)
+    }
 }
 
 export async function updateStore(store:Store){
     try {
         await sql`
           UPDATE stores SET 
-          name = ${store.name},logo= ${store.logo},banner= ${store.banner}, description=${store.description},categoryId=${store.categoryId},userId= ${store.userId}
+          name = ${store.name},logo= ${store.logo},banner= ${store.banner}, description=${store.description},categoryId=${store.categoryId}
           WHERE id=${store.id} ;
         `;
       } catch (error) {
@@ -93,7 +109,7 @@ export async function updateStore2(id:string ,name:string ,logo:string ,banner:s
 export async function getStoreByid(id: string) {
   noStore();
   try {
-      const result = await sql`SELECT * FROM stores WHERE id = ${id}`;
+      const result = await sql`SELECT * FROM stores s,users u WHERE s.id =u.storeid AND s.id = ${id}`;
       const result1=result.rows[0]
       const shop :Store={
       id:result1.id,
@@ -102,7 +118,6 @@ export async function getStoreByid(id: string) {
       banner:result1.banner,
       description: result1.description,
       categoryId:result1.categoryid,
-      userId:result1.userid,
       verifUrl:result1.verifurl,
       verifState:result1.verifstate,
       shippingOptions: result1.shipping_options,
@@ -117,7 +132,7 @@ export async function getStoreByid(id: string) {
 export async function getAllStores(){
   noStore();
   try{
-    const result = await sql`SELECT * FROM stores`;
+    const result = await sql`SELECT * FROM stores WHERE verifState='verified'`;
     const shops: Store[] = result.rows.map(row => ({
       id: row.id,
       name: row.name,
@@ -133,6 +148,33 @@ export async function getAllStores(){
   }));
     return shops ;
   }
+  
+  catch (error) {
+    // If a database error occurs, log the error and return a more specific error.
+    console.error('Database Error: Failed to Get Store.', error);
+    throw new Error('Failed to fetch store from the database.');
+}
+}
+export async function getAllStoresAdmin(){
+  noStore();
+  try{
+    const result = await sql`SELECT * FROM stores `;
+    const shops: Store[] = result.rows.map(row => ({
+      id: row.id,
+      name: row.name,
+      logo:row.logo,
+      banner:row.banner,
+      description: row.description,
+      categoryId:row.categoryid,
+      userId:row.userid,
+      verifUrl:row.verifurl,
+      verifState:row.verifstate,
+      shippingOptions: row.shipping_options,
+      returnPolicies:row.return_policies
+  }));
+    return shops ;
+  }
+  
   catch (error) {
     // If a database error occurs, log the error and return a more specific error.
     console.error('Database Error: Failed to Get Store.', error);

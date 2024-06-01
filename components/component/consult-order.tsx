@@ -28,16 +28,20 @@ import { useEffect, useState } from "react"
 import { Order } from "@/app/lib/types/order"
 import InitPay from "./initiate-pay-button";
 import { getStatusBadgeClass } from "./shop-orders";
+import { getUserName } from "@/app/lib/users";
 
 export function ConsultOrder({orderId}:{orderId:string}) {
   const [order,setOrder]=useState<Order|null>(null) ;
+  const [buyerId,setBuyerId]=useState<string>('');
   const handlePrint = () => {
     window.print();
   };
   const fetchOrder = async () => {
     try {
       const fetchedOrder = await getOrderById(orderId);
+
       if (fetchedOrder) {
+        
         setOrder(fetchedOrder);
       }
     } catch (error) {
@@ -90,7 +94,7 @@ export function ConsultOrder({orderId}:{orderId:string}) {
               <h2 className="text-xl font-semibold mb-4">Shipping Details</h2>
               <div className="grid gap-4">
                 <div>
-                  <span className="font-medium">{'selim smaaali'}</span>
+                  <span className="font-medium">{order?.buyerId}</span>
                   <p className="text-gray-500 dark:text-gray-400">
                     {order?.adress}
                     <br />
@@ -122,7 +126,7 @@ export function ConsultOrder({orderId}:{orderId:string}) {
             
           </div>
           <div>
-      {order?.status !== 'paid' && (
+      {order?.status !== 'paid' && order?.status !=='pending'&& order?.status !=='rejected'&& (
         <div className="flex items-center gap-2">
           <Button size="sm" variant="outline">
             <TrashIcon className="h-4 w-4" />

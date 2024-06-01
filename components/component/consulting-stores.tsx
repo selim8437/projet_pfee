@@ -24,11 +24,13 @@ import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@
 
 import { JSX, SVGProps, useEffect, useRef, useState } from "react";
 import DashboardSkeleton from "@/app/ui/skeletons";
-import { deleteStoreById, getAllStores } from "@/app/lib/stores";
+import { deleteStoreById, getAllStoresAdmin, verifyStore } from "@/app/lib/stores";
 import { Cuser } from "./cuser";
 import { Store } from "@/app/lib/types/store";
 import { EditButtonStore } from "./edit-button-store";
 import { Cstore } from "./cStore";
+import { Link } from "lucide-react";
+import Image from "next/image";
 
 export function ConsultingStores() {
   const [stores, setstores] = useState<Store[]>([]);
@@ -39,7 +41,7 @@ export function ConsultingStores() {
     try {
       
 
-      const fetchedStores = await getAllStores();
+      const fetchedStores = await getAllStoresAdmin();
       if (fetchedStores) {
         setstores(fetchedStores);
 
@@ -69,18 +71,13 @@ export function ConsultingStores() {
       console.error("Error deleting user:", error);
     }
   };
-  const updateStoresAfterEdit = async () => {
-    await fetchStores(); 
-    // Update user list after editing
-  };
-  const storesRef = useRef<HTMLDivElement>(null);
-
-  const scrollToAddStores = () => {
-    if (storesRef.current) {
-      storesRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  };
- 
+  
+  const verifyStor=(e:string)=>{
+    verifyStore(e,'verified')
+  }
+  const declineStore=(e:string)=>{
+    verifyStore(e,'declined')
+  }
   return (
     <>
       {isLoading ? (
@@ -114,12 +111,9 @@ export function ConsultingStores() {
                 <TableHead>Name</TableHead>
                 <TableHead>Logo</TableHead>
                 <TableHead>Banner</TableHead>
-                <TableHead>Description</TableHead>
-                <TableHead>Category id</TableHead>
                 <TableHead>Verif Url</TableHead>
                 <TableHead>VerifState</TableHead>
-                <TableHead>Shipping options</TableHead>
-                <TableHead>Return Policies</TableHead>
+                
                 <TableHead></TableHead>
 
               </TableRow>
@@ -133,21 +127,18 @@ export function ConsultingStores() {
       <TableCell>{store.name}</TableCell>
       <TableCell><img src={store.logo} alt="" /></TableCell>
       <TableCell><img src={store.banner} alt="" /></TableCell>
-      <TableCell>{store.description}</TableCell>
-      <TableCell>{store.categoryId}</TableCell>
-      <TableCell><img src={store.verifUrl} alt="" /></TableCell>
+            <TableCell><img src={store.verifUrl} alt="" /></TableCell>
       <TableCell>{store.verifState}</TableCell>
-      <TableCell>{store.shippingOptions}</TableCell>
-      <TableCell>{store.returnPolicies}</TableCell>
-
+      
       <TableCell>
+      {store.verifState==='pending'&&(
+
         <div className="flex gap-2">
-          <EditButtonStore store={store} onStoreUpdate={updateStoresAfterEdit}/>
-          <Button onClick={() => deleteStore(store.id)} size="sm" variant="destructive">
-            <TrashIcon className="h-4 w-4" />
-            Delete
-          </Button>
+          <Button className='bg-green-500' onClick={() => verifyStor(store.id)}>Verify</Button>
+          <Button className='bg-red-500' onClick={() => declineStore(store.id)}>Decline</Button>
         </div>
+              )}
+
       </TableCell>
     </TableRow>
   ))}
@@ -158,9 +149,7 @@ export function ConsultingStores() {
           </Table>
           </div>
           </div>
-          <div ref={storesRef}>
-            <Cstore />
-          </div>
+          
         </div>
       )}
     </>

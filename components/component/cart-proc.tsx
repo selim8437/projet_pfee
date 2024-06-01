@@ -32,6 +32,7 @@ import { createOrder } from "@/app/lib/orders";
 import { Cart } from "@/app/lib/types/cart";
 import { v4 } from 'uuid';
 import { redir } from "@/app/lib/actions";
+import { useUser } from "@clerk/nextjs";
 
 
 export function CartProc() {
@@ -47,7 +48,7 @@ export function CartProc() {
   const [productsIds,setProductIds]=useState<string[]>([]);
   const [currentShop,setCurrentShop]=useState<string>('');
   const [orderId,setOrderId]=useState<string>('') ;
-  
+  const {user}=useUser();
   const clearStoreData = ()=>{
     setStoredData([]) ;
     sessionStorage.removeItem('myData');
@@ -88,7 +89,17 @@ export function CartProc() {
     const price = storedData.reduce((sum, product) => sum + Number(product.price), 0);
     setTotalPrice(price);
   }, [storedData]);
-
+  useEffect(()=>{
+    if (user?.id) {
+      try {
+        console.log(user.id)
+        setBuyerId(user.id) ;
+        
+      }catch(e){
+        console.log(e);
+      }
+    }
+  },[user])
   const handleSubmit=()=>{
     console.log('its happenign');
     const cart:Cart={totalPrice,region,shippingMethod,adress,phone,buyerId,sellerId,paymentMethod,productsIds} ;

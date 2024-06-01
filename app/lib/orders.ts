@@ -3,7 +3,8 @@ import { sql } from "@vercel/postgres";
 import { Cart } from "./types/cart";
 import { v4 as uuidv4 } from 'uuid';
 import { getCurrentDateTimeString } from "./actions";
-import { Order } from "./types/order";
+import { Order, OrderProducts } from "./types/order";
+import { getUserName } from "./users";
 export async function createOrder(cart:Cart,uniqueId:string){
 
     try{
@@ -24,6 +25,30 @@ export async function payOrder(orderId:string){
     try{
         
         await sql`UPDATE orders SET status='paid' WHERE id=${orderId}
+       `
+       console.log('order payed');
+       
+    }catch(error){
+        console.log(error);
+    }
+
+}
+export async function rejectOrder(orderId:string){
+    try{
+        
+        await sql`UPDATE orders SET status='rejected' WHERE id=${orderId}
+       `
+       console.log('order payed');
+       
+    }catch(error){
+        console.log(error);
+    }
+
+}
+export async function acceptOrder(orderId:string){
+    try{
+        
+        await sql`UPDATE orders SET status='accepted' WHERE id=${orderId}
        `
        console.log('order payed');
        
@@ -55,12 +80,13 @@ export async function getOrderById(id: string): Promise<Order | null> {
       }
   
       const result1 = result.rows[0];
-  
+      const username:string= await getUserName(result1.buyerid) ;
+      
       const order: Order = {
         id: result1.id,
         status: result1.status,
         shippingMethod: result1.shippingmethod,
-        buyerId: result1.buyerid,
+        buyerId: username,
         sellerId: result1.sellerid,
         adress: result1.address,
         phone: result1.phone,
@@ -77,25 +103,69 @@ export async function getOrderById(id: string): Promise<Order | null> {
       return null;
     }
   }
-export async function getOrdersByClientId(){
+  export async function getOrdersBySellerId(id :string) {
+    try {
+        const result = await sql`SELECT * FROM orders WHERE sellerid=${id};`;
+
+        const orders = await Promise.all(result.rows.map(async (row) => ({
+            id: row.id,
+            status: row.status,
+            shippingMethod: row.shippingmethod,
+            buyerId: await getUserName(row.buyerid),
+            sellerId: row.sellerid,
+            adress: row.address,
+            phone: row.phone,
+            totalPrice: row.totalprice,
+            region: row.region,
+            date: row.date,
+            paymentMethod: row.paymentmethod,
+        })));
+
+        console.log('orders fetched');
+
+        return orders;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function getOrdersByClientId(id :string) {
+    try {
+        const result = await sql`SELECT * FROM orders WHERE buyerid=${id};`;
+
+        const orders = await Promise.all(result.rows.map(async (row) => ({
+            id: row.id,
+            status: row.status,
+            shippingMethod: row.shippingmethod,
+            buyerId: await getUserName(row.buyerid),
+            sellerId: row.sellerid,
+            adress: row.address,
+            phone: row.phone,
+            totalPrice: row.totalprice,
+            region: row.region,
+            date: row.date,
+            paymentMethod: row.paymentmethod,
+        })));
+
+        console.log('orders fetched');
+
+        return orders;
+    } catch (error) {
+        console.log(error);
+    }
+}
+export async function getOrdersProductBySellerId(id:string){
 
     try{
 
-        const result =await sql`SELECT * FROM orders ;
+        const result =await sql`SELECT o.* FROM order_products o , orders op WHERE o.order_id=op.id and op.sellerid=${id}  ;
         
        `
-       const orders :Order[]=result.rows.map(row => ({
-        id: row.id,
-        status: row.status,
-        shippingMethod:row.shippingmethod,
-        buyerId:row.buyerid,
-        sellerId: row.sellerid,
-        adress:row.address,
-        phone:row.phone,
-        totalPrice:row.totalprice,
-        region:row.region,
-        date: row.date,
-        paymentMethod:row.paymentmethod,
+       const orders :OrderProducts[]=result.rows.map(row => ({
+        orderId: row.order_id,
+        productId:row.product_id,
+        quantity:row.quantity,
+        
     }));
     console.log('orders fetched');
 

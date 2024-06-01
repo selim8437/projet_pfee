@@ -33,6 +33,8 @@ import { useUser } from "@clerk/nextjs";
 export function ConsultingProducts() {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState(""); // State to store the search query
+
   const  { user } = useUser();
   
   const userId = user?.id; 
@@ -79,16 +81,14 @@ export function ConsultingProducts() {
     await fetchProducts(); 
     // Update product list after editing
   };
-  const productsRef = useRef<HTMLDivElement>(null);
-
-  const scrollToAddProducts = () => {
-    if (productsRef.current) {
-      productsRef.current.scrollIntoView({ behavior: "smooth" });
-    }
+  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
   };
-  function alertNoProducts(){
-    alert('No Products Found !')
-  }
+  
+ 
+const filteredProducts= products.filter((product) =>
+  product.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+);
   return (
     <>
       {isLoading ? (
@@ -106,14 +106,17 @@ export function ConsultingProducts() {
         className="w-full rounded-md bg-white px-8 py-2 pl-8 text-sm shadow-sm transition-colors focus:outline-none focus:ring-1 focus:ring-gray-900 dark:bg-gray-800 dark:text-black-50 dark:focus:ring-gray-300"
         placeholder="Search Products..."
         type="search"
+        value={searchQuery}
+        onChange={handleSearchInputChange}
       />
     </div>
   </div>
 </div>
 </div>
           <div className="mx-auto px-8 py-16">
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          <Table className="w-full table-auto">
+      <div className=" bg-white rounded-lg shadow-md overflow-hidden">
+      <Table className=" w-full table-auto">
+        <div className="h-128">
             <TableHeader className="bg-gray-100 text-gray-600 font-medium">
               <TableRow>
                 <TableHead>Image</TableHead>
@@ -128,7 +131,7 @@ export function ConsultingProducts() {
             </TableHeader>
               
                <TableBody className="divide-y divide-gray-200">
-  {products.slice(0, 5).map((product, index) => (
+  {filteredProducts.map((product, index) => (
     <TableRow key={index}>
       <TableCell>
         {product.images.map((image, i) => (
@@ -160,12 +163,11 @@ export function ConsultingProducts() {
   ))}
 </TableBody>
 
-
-              
+</div>
           </Table>
           </div>
           </div>
-          <div ref={productsRef}>
+          <div>
             <Cproduct />
           </div>
         </div>

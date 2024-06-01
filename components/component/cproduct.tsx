@@ -27,6 +27,8 @@ import { Product } from "@/app/lib/types/prduct"
 import { createProduct } from "@/app/lib/products"
 import { useUser } from "@clerk/nextjs"
 import ButtonUpload from "@/app/ui/uploader-button";
+import { v4 } from "uuid";
+import { getStoreId } from "@/app/lib/users";
 
 
 export function Cproduct() {
@@ -39,11 +41,16 @@ export function Cproduct() {
   const [test, setTests] = useState([true, true, true]);
   const { user } = useUser();
   const [storeId, setStoreId] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (user) {
-      setStoreId(user.id);
+  const getStoreid=async ()=>{
+    if (user?.id) {
+      const cat :string =await getStoreId(user?.id);
+      setStoreId(cat)
     }
+  }
+  useEffect( () => {
+    getStoreid() ;
   }, [user]);
 
   const handleImageUrlChange = (url: string, index: number) => {
@@ -64,9 +71,9 @@ export function Cproduct() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    let id=title ;
+    let id=v4() ;
     const updatedProduct: Product = { id, title, description, price, quantity, images, specifications, storeId: storeId || '' };
-    createProduct(updatedProduct)
+    createProduct(updatedProduct) 
       .then(() => {
         // Call the onProductUpdate callback function after successful update
         onProductUpdate();
@@ -77,47 +84,47 @@ export function Cproduct() {
   };
   return (
     <div className="max-w-2xl mx-auto p-6 md:p-8 lg:p-10">
-      <div className="space-y-6 text-white">
+      <div className="space-y-6 ">
         <div>
-          <h1 className="text-3xl font-bold">Create a new product</h1>
-          <p className="text-gray-400">Fill out the form to add a new product to your store.</p>
+          <h1 className="text-3xl text-white font-bold">Create a new product</h1>
+          <p className="text-white">Fill out the form to add a new product to your store.</p>
         </div>
         <form className="grid gap-6 " onSubmit={handleSubmit}>
           <div className="grid gap-2">
-            <Label htmlFor="name">Product Name</Label>
+            <Label className='text-white' htmlFor="name">Product Name</Label>
             <Input id="name" placeholder="Enter product name"     onChange={(e) => setTitle(e.target.value)}
 />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="description">Product Description</Label>
+            <Label className='text-white' htmlFor="description">Product Description</Label>
             <Textarea className="min-h-[100px]" id="description" placeholder="Enter product description"    
             onChange={(e) => setDescription(e.target.value)}
  />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="price">Price</Label>
+            <Label className='text-white' htmlFor="price">Price</Label>
             <Input id="price" placeholder="Enter product price"               onChange={(e) => setPrice(+e.target.value)}
  />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="quantity">Quantity</Label>
+            <Label className='text-white' htmlFor="quantity">Quantity</Label>
             <Input id="quantity" placeholder="Enter product quantity"                onChange={(e) => setQuantity(+e.target.value)}
  />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="specifications">Specifications</Label>
+            <Label className='text-white' htmlFor="specifications">Specifications</Label>
             <Input id="specifications" placeholder="Enter product specifications"  onChange={(e) => setSpecifications(e.target.value)}
 />
           </div>
           <div className="grid gap-4">
             <div className="grid gap-2">
-              <Label>Product Images</Label>
+              <Label className='text-white'>Product Images</Label>
               
               <div className="grid grid-cols-3 gap-4">
               {images.map((image, index) => (
                 <div key={index} className="relative group">
                   {test[index]?(
-                <ButtonUpload onImageUrlChange={(a) => handleImageUrlChange(a, index)}></ButtonUpload>
+                <ButtonUpload onImageUrlChange={(a) => handleImageUrlChange(a, index)}/>
                   ):(
                   <div>
                     <img

@@ -36,6 +36,10 @@ import { useUser } from "@clerk/nextjs";
 import {Banner} from '@/components/component/banner'
 import DashboardSkeleton from "@/app/ui/skeletons";
 import { ProfileLogo } from "./profile-logo";
+import { getAllCategories } from "@/app/lib/categories";
+import { Category } from "@/app/lib/types/category";
+import { Label } from "../ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 export default function StoreCustomization() {
   const [logoTest, setLogoTest] = useState(false);
@@ -48,7 +52,7 @@ export default function StoreCustomization() {
   const [shippingOption, setShippingOption] = useState('');
   const [returnPolicy, setReturnPolicy] = useState('');
   const [isLoading, setIsLoading] = useState(true); // State to track loading status
-
+  const [categories,setCategories]=useState<Category[]>([]);
   const { user } = useUser();
   
   const userId = user?.id; // Get the user ID or undefined if user is null/undefined
@@ -64,6 +68,8 @@ export default function StoreCustomization() {
     const handleGetStore = async () => {
       if (user?.id) {
         try {
+          const cat=await getAllCategories() ;
+          setCategories(cat) ;
           const result = await getStoreByid(user.id);
           
             // Update state only after fetching is complete
@@ -121,7 +127,9 @@ export default function StoreCustomization() {
     setBannerTest(true);
 
   };
-  
+  const handleValuechange=(e:string)=>{
+    setStoreCategory(e) ;
+  }
 
   const handleSaveChanges = () => {
    async function storeCustom() {
@@ -243,8 +251,21 @@ export default function StoreCustomization() {
                 <CardTitle>Category</CardTitle>
               </CardHeader>
               <CardContent>
-                <Input  value={storeCategory} className="w-full"  onChange={(e) => setStoreCategory(e.target.value)}  type="text" />
-              </CardContent>
+              <div className="space-y-2">
+          <Label htmlFor="category">Category</Label>
+          <Select value={storeCategory} onValueChange={handleValuechange} >
+            <SelectTrigger>
+              <SelectValue placeholder="Select category" />
+            </SelectTrigger>
+            <SelectContent  >
+              {categories.map((categori,index)=>(
+                <div key={index}>
+              <SelectItem value={categori.id}>{categori.categoryname}</SelectItem>
+              </div>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>              </CardContent>
             </Card>
           </div>
           {/* Shipping Options */}

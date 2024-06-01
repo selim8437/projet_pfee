@@ -5,7 +5,6 @@ export interface Store{
     banner: string ;
     description :string ;
     categoryId : string ;
-    userId:string ;
     verifUrl:string ;
     verifState:string  ;
     shippingOptions:string ;

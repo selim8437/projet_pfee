@@ -11,3 +11,10 @@ export interface Order{
     date:string ;
     paymentMethod:string ;
 }
+export interface OrderProducts{
+    orderId:string;
+    productId:string ;
+    quantity:string ;
+    
+
+}

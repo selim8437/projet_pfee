@@ -24,15 +24,20 @@ import { CardHeader, CardContent, Card } from "@/components/ui/card"
 import { useEffect, useState } from "react"
 import { Order } from "@/app/lib/types/order"
 import { getOrdersByClientId } from "@/app/lib/orders"
+import { useUser } from "@clerk/nextjs";
 
 export function ShopOrders() {
   const [orders,setOrders]=useState<Order[]>([]) ;
+  const {user}=useUser() ;
+
   const fetchOrders = async () => {
     try {
-      const fetchedOrders = await getOrdersByClientId();
+      if(user?.id) {
+      const fetchedOrders = await getOrdersByClientId(user.id);
       if (fetchedOrders) {
         setOrders(fetchedOrders);
       }
+    }
     } catch (error) {
       console.error("Error fetching products:", error);
     } 
@@ -41,7 +46,7 @@ export function ShopOrders() {
 
   useEffect( ()=>{
     fetchOrders();
-  },[]) ;
+  },[user]) ;
 
  
   return (
@@ -60,12 +65,12 @@ export function ShopOrders() {
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-gray-500 dark:text-gray-400">Sophia Anderson</span>
+              <span className="text-gray-500 dark:text-gray-400">{order.buyerId}</span>
               <span className="text-gray-500 dark:text-gray-400">{order.date}</span>
             </div>
             <div className="flex items-center justify-between">
               <span className="font-medium">{order.totalPrice}</span>
-              <Link className="text-primary hover:underline" href="#">
+              <Link className="text-primary hover:underline" href={"/shop/orders/"+order.id}>
                 View Details
               </Link>
             </div>

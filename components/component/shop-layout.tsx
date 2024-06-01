@@ -36,9 +36,7 @@ export function ShopLayout() {
           </Link>
           
           <nav className="hidden md:flex space-x-4">
-            <Link className="text-white no-underline hover:text-gray-300" href="#">
-              About
-            </Link>
+           
             <Link className="text-white no-underline hover:text-gray-300" href="/shop/orders/">
               My orders
             </Link>

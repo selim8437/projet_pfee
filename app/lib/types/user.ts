@@ -1,6 +1,6 @@
 export interface User{
 id:string ;
-storeid:string ;
+storeid:string|null ;
 email:string ;
 type: string ;
 firstName :string ;

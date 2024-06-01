@@ -9,7 +9,7 @@ export default function Signup() {
   return (
     <>
      
-        <div
+        <div className="bg-gray-850"
           style={{
             display: "flex",
             justifyContent: "center",
@@ -17,7 +17,7 @@ export default function Signup() {
             height: "100vh",
           }}
         >
-          <div style={{ width: "400px", maxWidth: "500px" }}>
+          <div className="bg-gray-850" style={{ width: "400px", maxWidth: "500px" }}>
             <SignUp />
           </div>
         </div>

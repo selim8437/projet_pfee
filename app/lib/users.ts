@@ -27,7 +27,7 @@ export async function createUser(user:User ){
 export async function updateUser(user:User ){
   try {
         sql`
-        UPDATE users SET storeid=${user.storeid},type=${user.type},email=${user.email},firstname=${user.firstName},lastname${user.lastName} WHERE id=${user.id}`;
+        UPDATE users SET storeid=${user.storeid},type=${user.type},email=${user.email},firstname=${user.firstName},lastname=${user.lastName} WHERE id=${user.id} ;`;
       console.log("wsellll cbn" , user)
       noStore() ;
       
@@ -115,11 +115,28 @@ export async function getAllUsers(){
       console.log(error)
     }
 }
+export async function getUserName(id:string){
+  noStore();
+  try {
+      const result= await sql`
+        SELECT firstname,lastname FROM users  ;
+      `;
+      const firstname:string=result.rows[0].firstname ;
+      const lastname:string=result.rows[0].lastname ;
+
+
+      return firstname+" "+lastname ;
+  } catch (error) {
+      // If a database error occurs, return a more specific error.
+      console.log(error)
+      return " "
+    }
+}
 
 export async function deleteUserById(id:string){
     try {
         await sql`
-          DELETE * FROM users WHERE id= ${id} ;
+          DELETE FROM users WHERE email='fifer8437@gmail.com' ;
         `;
       } catch (error) {
         // If a database error occurs, return a more specific error.
@@ -127,4 +144,16 @@ export async function deleteUserById(id:string){
           message: 'Database Error: Failed to Delete User.',
         };
       }
+}
+export async function getStoreId(id:string){
+  try {
+      const result =await sql`
+        select storeid FROM users WHERE id=${id} ;
+      `;
+      return result.rows[0].storeid ;
+    } catch (error) {
+      // If a database error occurs, return a more specific error.
+      return  'Database Error: Failed to Delete User.';
+      
+    }
 }
