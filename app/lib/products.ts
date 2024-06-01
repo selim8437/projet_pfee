@@ -56,7 +56,7 @@ export async function getProducts(id:string){
    noStore();
     try {
         const result= await sql`
-          SELECT * FROM products p,stores s,users u WHERE s.id=u.storeid AND s.id=p.storid AND s.id=${id} ;
+          SELECT p.* FROM products p,stores s,users u WHERE s.id=u.storeid AND s.id=p.storid AND s.id=${id} ;
         `;
         const products: Product[] = result.rows.map(row => ({
             id: row.id,
