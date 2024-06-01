@@ -30,9 +30,9 @@ export function FailurePayment() {
           </div>
           <h1 className="text-3xl font-bold mt-6">Payment Failed</h1>
           <p className="text-gray-500 dark:text-gray-400 mt-2 text-center">
-            We're sorry, but your payment was not successful. Please try again or contact our support team if you have
-            any questions.
-          </p>
+  We&apos;re sorry, but your payment was not successful. Please try again or contact our support team if you have
+  any questions.
+</p>
           <div className="mt-6 flex gap-2">
             <Button variant="outline">Try Again</Button>
             <Link
