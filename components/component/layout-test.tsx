@@ -26,6 +26,7 @@ import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, Dropdown
 import { ResponsiveLine } from "@nivo/line"
 import { ResponsiveBar } from "@nivo/bar"
 import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@/components/ui/table"
+import { JSX, ClassAttributes, HTMLAttributes, SVGProps } from "react"
 
 export function LayoutTest() {
   return (
@@ -213,7 +214,7 @@ export function LayoutTest() {
   )
 }
 
-function BarChart(props) {
+function BarChart(props: JSX.IntrinsicAttributes & ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement>) {
   return (
     <div {...props}>
       <ResponsiveBar
@@ -267,7 +268,7 @@ function BarChart(props) {
 }
 
 
-function BellIcon(props) {
+function BellIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -288,7 +289,7 @@ function BellIcon(props) {
 }
 
 
-function HomeIcon(props) {
+function HomeIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -309,7 +310,7 @@ function HomeIcon(props) {
 }
 
 
-function LineChart(props) {
+function LineChart(props: JSX.IntrinsicAttributes & ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement>) {
   return (
     <div {...props}>
       <ResponsiveLine
@@ -383,7 +384,7 @@ function LineChart(props) {
 }
 
 
-function LineChartIcon(props) {
+function LineChartIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -404,7 +405,7 @@ function LineChartIcon(props) {
 }
 
 
-function MountainIcon(props) {
+function MountainIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -424,7 +425,7 @@ function MountainIcon(props) {
 }
 
 
-function PackageIcon(props) {
+function PackageIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -447,7 +448,7 @@ function PackageIcon(props) {
 }
 
 
-export function SearchIcon(props) {
+export function SearchIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -468,7 +469,7 @@ export function SearchIcon(props) {
 }
 
 
-function ShoppingCartIcon(props) {
+function ShoppingCartIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -490,7 +491,7 @@ function ShoppingCartIcon(props) {
 }
 
 
-function UsersIcon(props) {
+function UsersIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
