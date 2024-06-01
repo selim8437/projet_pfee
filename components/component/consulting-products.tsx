@@ -145,6 +145,8 @@ const filteredProducts= products.filter((product) =>
           />
         ))}
       </TableCell>
+      <TableCell>{product.id}</TableCell>
+
       <TableCell className="font-medium">{product.title}</TableCell>
       <TableCell>{product.description}</TableCell>
       <TableCell>{product.price}</TableCell>
