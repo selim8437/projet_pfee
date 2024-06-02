@@ -30,6 +30,8 @@ import { Store } from "@/app/lib/types/store";
 export function ConsultingStores() {
   const [stores, setstores] = useState<Store[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState(""); // State to store the search query
+
   
   
   const fetchStores = async () => {
@@ -73,6 +75,14 @@ export function ConsultingStores() {
   const declineStore=(e:string)=>{
     verifyStore(e,'declined')
   }
+  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+  
+ 
+const filteredStores= stores.filter((store) =>
+  store.name.toLowerCase().startsWith(searchQuery.toLowerCase())
+);
   return (
     <>
       {isLoading ? (
@@ -90,6 +100,8 @@ export function ConsultingStores() {
         className="w-full rounded-md bg-white px-8 py-2 pl-8 text-sm shadow-sm transition-colors focus:outline-none focus:ring-1 focus:ring-gray-900 dark:bg-gray-800 dark:text-black-50 dark:focus:ring-gray-300"
         placeholder="Search Stores..."
         type="search"
+        value={searchQuery}
+        onChange={handleSearchInputChange}
       />
     </div>
   </div>
@@ -115,7 +127,7 @@ export function ConsultingStores() {
             </TableHeader>
               
                <TableBody>
-  {stores.slice(0, 5).map((store, index) => (
+  {filteredStores.slice(0, 5).map((store, index) => (
     <TableRow key={index}>
      
       <TableCell className="font-medium">{store.id}</TableCell>
