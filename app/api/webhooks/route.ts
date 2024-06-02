@@ -58,8 +58,8 @@ export async function POST(req: Request) {
   console.log('knkjkjkj') ;
     // Send user data to another endpoint
     try {
-      createUser(userData);
-      console.log("sssssssss") ;
+      const {message}=await createUser(userData);
+      console.log(message) ;
     
     } catch (error) {
       console.error('Error sending user data to another endpoint:', error);
