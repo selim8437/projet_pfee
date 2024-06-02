@@ -11,11 +11,11 @@ interface UserTypeResult {
 }
 export async function createUser(user:User ){
     try {
-          sql`
+         const result =await sql`
           INSERT INTO users VALUES( 
           ${user.id} ,${user.storeid},${user.type},${user.email},${user.firstName},${user.lastName})
         `;
-        console.log("wsellll cbn" , user)
+        console.log("wsellll cbn" , result)
         noStore() ;
         
       } catch (error) {
