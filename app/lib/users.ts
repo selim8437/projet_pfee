@@ -6,7 +6,9 @@ import { redirect } from 'next/navigation';
 import { error } from 'console';
 import {User} from './types/user'
 import { unstable_noStore as noStore } from 'next/cache';
-
+interface UserTypeResult {
+  type: string;
+}
 export async function createUser(user:User ){
     try {
           sql`
@@ -157,3 +159,26 @@ export async function getStoreId(id:string){
       
     }
 }
+export async function getUserType(id: string): Promise<string> {
+  noStore(); // Assuming this is a utility function in your code
+  try {
+    if (id !== undefined) {
+      const result = await sql`
+        SELECT type FROM users WHERE id = ${id};
+      `;
+
+      if (result.rowCount > 0) {
+        const type: string = result.rows[0].type;
+        return type;
+      } else {
+        throw new Error('User not found');
+      }
+    } else {
+      throw new Error('User ID is undefined');
+    }
+  } catch (error) {
+    console.error("Failed to fetch user type:", error);
+    return ""; // Return a default value or handle the error appropriately
+  }
+}
+

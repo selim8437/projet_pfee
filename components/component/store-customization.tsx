@@ -40,6 +40,8 @@ import { getAllCategories } from "@/app/lib/categories";
 import { Category } from "@/app/lib/types/category";
 import { Label } from "../ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { UploadButton } from "@/app/lib/uploadthing";
+import ButtonUpload from "@/app/ui/uploader-button";
 
 export default function StoreCustomization() {
   const [logoTest, setLogoTest] = useState(false);
@@ -184,7 +186,7 @@ export default function StoreCustomization() {
                                 
               ) : (
                 <div className="flex items-center justify-center" >
-                <ImageUpload onImageUrlChange={handleLogoUrlChange} />
+                <ButtonUpload onImageUrlChange={handleLogoUrlChange} />
                 </div>
               )}
               
@@ -206,14 +208,14 @@ export default function StoreCustomization() {
               <CardHeader>
                 <CardTitle>Store Banner</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="flex items-center justify-center">
               {bannerTest ? (
                 <Banner url={bannerUrl} />
                
               ) : (
               
                 <div className="flex items-center justify-center" >
-                  <ImageUpload onImageUrlChange={handleBannerUrlChange} />                  
+                  <ButtonUpload onImageUrlChange={handleBannerUrlChange} />                  
                 </div>
 
               )}
