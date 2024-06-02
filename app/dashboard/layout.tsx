@@ -29,7 +29,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   }
 
   if (type !== 'S') {
-    return <div className="bg-gray-900 text-white">You're not allowed</div>; // Display "You're not allowed" message if user type is not 'A'
+    return <div className="bg-gray-900 text-white">You are not allowed</div>; // Display "You're not allowed" message if user type is not 'A'
   }
   return (
   <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr] bg-gray-900">
