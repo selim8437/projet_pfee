@@ -50,7 +50,7 @@ export async function POST(req: Request) {
     const firstName=first_name ;
     const lastName=last_name ;
 
-    const storeid='1' ;
+    const storeid=null ;
     const type='B' ;
 
     // Prepare data to send to another endpoint
