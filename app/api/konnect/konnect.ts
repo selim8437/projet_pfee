@@ -52,7 +52,7 @@ export const initiatePayment = async (initiatePaymentRequest: InitiatePaymentReq
     const response: AxiosResponse<{ payUrl: string }> = await axios.post(`${BASE_URL}/payments/init-payment`, initiatePaymentRequest, {
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key':`${process.env.NEXT_PUBLIC_KONNECT_API_KEY}`,
+        'x-api-key':'6649b579a58e585682a5c0d7:W2eahkikfugPKNKHAukdcUbgZxl2',
       },
     });
     console.log(response);
