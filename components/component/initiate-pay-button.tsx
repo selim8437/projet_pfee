@@ -31,7 +31,7 @@ const InitPay = ({orderId}:{orderId:string} ) => {
           amount: 1000,
           type: 'immediate',
           description: 'Payment description',
-          acceptedPaymentMethods: ['wallet', 'bank_card', 'e-DINAR','flouci'],
+          acceptedPaymentMethods: ['wallet', 'bank_card', 'e-DINAR'],
           lifespan: 10,
           checkoutForm: false,
           addPaymentFeesToAmount: false,
@@ -39,11 +39,11 @@ const InitPay = ({orderId}:{orderId:string} ) => {
           lastName: 'smaali',
           phoneNumber: '54579977',
           email: 'selim.smaali654@gmail.com',
-          orderId: 'df',
+          orderId: '879485665',
           webhook: 'https://merchant.tech/api/notification_payment',
           silentWebhook: true,
-          successUrl: 'http://127.0.0.1:3000/shop/success/',
-          failUrl: 'http://127.0.0.1:3000/shop/failure/',
+          successUrl: 'https:facebook.com',
+          failUrl: 'https://facebook.com',
           theme: 'light',
         };
         
