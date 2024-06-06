@@ -28,7 +28,7 @@ const InitPay = ({orderId}:{orderId:string} ) => {
         const initiatePaymentRequest: InitiatePaymentRequest = {
           receiverWalletId: '6649b362a58e585682a5ba1a', // Update with your receiver wallet ID
           token: 'TND',
-          amount: 58000,
+          amount: 1000,
           type: 'immediate',
           description: 'Payment description',
           acceptedPaymentMethods: ['wallet', 'bank_card', 'e-DINAR','flouci'],
@@ -39,7 +39,7 @@ const InitPay = ({orderId}:{orderId:string} ) => {
           lastName: 'smaali',
           phoneNumber: '54579977',
           email: 'selim.smaali654@gmail.com',
-          orderId: orderId,
+          orderId: 'df',
           webhook: 'https://merchant.tech/api/notification_payment',
           silentWebhook: true,
           successUrl: 'http://127.0.0.1:3000/shop/success/',
