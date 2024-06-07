@@ -42,8 +42,8 @@ const InitPay = ({orderId}:{orderId:string} ) => {
           orderId: orderId,
           webhook: 'https://merchant.tech/api/notification_payment',
           silentWebhook: true,
-          successUrl: 'http://127.0.0.1/shop/success/',
-          failUrl: 'http://127.0.0.1/shop/failure/',
+          successUrl: 'https://projet-pfee.vercel.app/shop/success/',
+          failUrl: 'https://projet-pfee.vercel.app/shop/failure/',
           theme: 'light',
         };
         
