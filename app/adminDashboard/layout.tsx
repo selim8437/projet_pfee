@@ -16,7 +16,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       setType(c) ;
       setIsLoading(false) ;
     }else {
-      console.log('user id is undefined')
+      console.log('user id is undefined') ;
     }
   }
 
@@ -33,13 +33,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr] bg-gray-900">
-      <div className="hidden border-r lg:block dark:bg-gray-900">
+    <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr] bg-gray-950">
+      <div className="hidden lg:block dark:bg-gray-950">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <DashboardLayoutAdmin />
         </div>
       </div>
-      <div>{children}</div>
+      <div className="bg-gray-900">{children}</div>
     </div>
   );
 }

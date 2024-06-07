@@ -27,7 +27,7 @@ import { Badge } from "../ui/badge"
 export function DashboardLayout() {
   return (
     <div >
-          <div className="flex h-[60px] items-center border-b px-6">
+          <div className="flex h-[60px] items-center  px-6">
             <Link className="flex items-center gap-2 text-white no-underline text-lg font-bold" href="#">
               <MountainIcon className="h-6 w-6" />
               <span >Multivendor</span>
@@ -37,7 +37,7 @@ export function DashboardLayout() {
               <span className="sr-only">Toggle notifications</span>
             </Button>
           </div>
-          <div className="flex-1  py-2">
+          <div className="flex-1  py-2 ">
             <NavLinks/>
           </div>
           

@@ -9,7 +9,7 @@ import { UserButton } from "@clerk/nextjs";
 
 export function DashboardLayoutHeader(){
     return(
-        <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-900 px-6 dark:bg-gray-800/40">
+        <header className="bg-gray-850 flex h-14 lg:h-[60px] items-center gap-4  px-6 dark:bg-gray-800/40">
           <Link className="lg:hidden" href="#">
             <MountainIcon className="h-6 w-6" />
             <span className="sr-only">Home</span>
