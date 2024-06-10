@@ -127,7 +127,7 @@ const filteredStores= stores.filter((store) =>
             </TableHeader>
               
                <TableBody>
-  {filteredStores.slice(0, 5).map((store, index) => (
+  {filteredStores.map((store, index) => (
     <TableRow key={index}>
      
       <TableCell className="font-medium">{store.id}</TableCell>
