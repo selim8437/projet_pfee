@@ -33,6 +33,7 @@ import { Store } from "@/app/lib/types/store"
 import { v4 } from "uuid"
 import { createStore } from "@/app/lib/stores"
 import { useUser } from "@clerk/nextjs";
+import Link from "next/link";
 
 export function StoreCreation() {
   const [id,setId]=useState<string>('') ;
@@ -143,7 +144,8 @@ export function StoreCreation() {
         </div>
       </CardContent>
       <CardFooter>
-        <Button onClick={handleSubmit} className="ml-auto bg-black">Create Store</Button>
+        <Link href={"/dashboard/content/"}>        <Button onClick={handleSubmit} className="ml-auto bg-black">Create Store</Button>
+        </Link>
       </CardFooter>
     </Card>
   )
