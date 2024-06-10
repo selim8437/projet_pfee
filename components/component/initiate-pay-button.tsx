@@ -27,7 +27,6 @@ const InitPay = ({orderId}:{orderId:string} ) => {
       setError(null);
       
       try {
-        if(order){
         const initiatePaymentRequest: InitiatePaymentRequest = {
           receiverWalletId: '6649b362a58e585682a5ba1a', // Update with your receiver wallet ID
           token: 'TND',
@@ -56,7 +55,7 @@ const InitPay = ({orderId}:{orderId:string} ) => {
         const payU=await paymentUrl ;
         console.log(payU);
         redir(payU);
-      }
+      
       } catch (error:any) {
         console.error('Error initiating payment:', error);
         setError(error.message || 'An error occurred while initiating payment');
