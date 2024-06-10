@@ -27,11 +27,11 @@ const InitPay = ({orderId}:{orderId:string} ) => {
       setError(null);
       
       try {
-        if(order!=null){
+        if(order){
         const initiatePaymentRequest: InitiatePaymentRequest = {
           receiverWalletId: '6649b362a58e585682a5ba1a', // Update with your receiver wallet ID
           token: 'TND',
-          amount: order.totalPrice,
+          amount: 58,
           type: 'immediate',
           description: 'Payment description',
           acceptedPaymentMethods: ['wallet', 'bank_card', 'e-DINAR','flouci'],
@@ -80,7 +80,7 @@ const fetchOrder = async () => {
 };
 useEffect(()=>{
   fetchOrder() ;
-},[order])
+},[])
   return (
     <div>
       
