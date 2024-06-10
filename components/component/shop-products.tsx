@@ -26,7 +26,7 @@ import { ImagesSlide } from "./images-slide";
 import { SearchIcon } from "lucide-react";
 import { Input } from "../ui/input";
 import { BannerProd } from "./banner-prod";
-import { getStoreByid } from "@/app/lib/stores";
+import { getStoreByShopid, getStoreByid } from "@/app/lib/stores";
 import { Store } from "@/app/lib/types/store";
 import { MyContext } from "./context";
 
