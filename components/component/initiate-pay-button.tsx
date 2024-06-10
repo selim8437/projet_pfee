@@ -80,7 +80,7 @@ const fetchOrder = async () => {
 };
 useEffect(()=>{
   fetchOrder() ;
-},[])
+},[order])
   return (
     <div>
       
