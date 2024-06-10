@@ -38,7 +38,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <DashboardLayout />
         </div>
       </div>
-    <div className='bg-gray-850'>{children}</div>
+    <div className='bg-gray-900'>{children}</div>
   </div>
   );
 }
