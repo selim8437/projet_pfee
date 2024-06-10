@@ -18,7 +18,7 @@ To read more about using these font, please visit the Next.js documentation:
 - Pages Directory: https://nextjs.org/docs/pages/building-your-application/optimizing/fonts
 **/
 "use client";
-import { getProducts } from "@/app/lib/products";
+import { getProducts, getProductsBuyer } from "@/app/lib/products";
 import { Product } from "@/app/lib/types/prduct";
 import { Button } from "@/components/ui/button"
 import { useContext, useEffect, useState } from "react";
@@ -50,7 +50,7 @@ export function ShopProducts({ shopId }: Props) {
   const { num, setNum } = context;
   const fetchProducts = async () => {
       try {
-          const fetchedProducts = await getProducts(shopId);
+          const fetchedProducts = await getProductsBuyer(shopId);
           if (fetchedProducts) {
               setProducts(fetchedProducts);
           }

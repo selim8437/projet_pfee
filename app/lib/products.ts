@@ -75,6 +75,29 @@ export async function getProducts(id:string){
         console.log(error)
       }
 }
+export async function getProductsBuyer(id:string){
+  noStore();
+   try {
+       const result= await sql`
+         SELECT p.* FROM products p,stores s,users u WHERE s.id=u.storeid AND s.id=p.storid AND s.id=${id} ;
+       `;
+       const products: Product[] = result.rows.map(row => ({
+           id: row.id,
+           title: row.title,
+           description: row.description,
+           price: row.price,
+           quantity: row.quantity,
+           images: row.images,
+           specifications: row.specifications,
+           storeId: row.storid
+       }));
+       console.log('products fetched')
+       return products ;
+   } catch (error) {
+       // If a database error occurs, return a more specific error.
+       console.log(error)
+     }
+}
 export async function getAllProducts(){
   noStore();
    try {
