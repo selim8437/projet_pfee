@@ -71,20 +71,18 @@ export function ConsultingStores() {
   
   const verifyStor=(e:string)=>{
     verifyStore(e,'verified') ;
-    filteredStores= stores.filter((store) =>
-      store.name.toLowerCase().startsWith(searchQuery.toLowerCase()) );
+    fetchStores();
   }
   const declineStore=(e:string)=>{
     verifyStore(e,'declined');
-    filteredStores= stores.filter((store) =>
-      store.name.toLowerCase().startsWith(searchQuery.toLowerCase()) );
+    fetchStores() ;
   }
   const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
   
  
-let filteredStores= stores.filter((store) =>
+const filteredStores= stores.filter((store) =>
   store.name.toLowerCase().startsWith(searchQuery.toLowerCase())
 );
 
