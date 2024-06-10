@@ -109,7 +109,7 @@ export async function updateStore2(id:string ,name:string ,logo:string ,banner:s
 export async function getStoreByid(id: string) {
   noStore();
   try {
-      const result = await sql`SELECT * FROM stores s,users u WHERE s.id =u.storeid AND s.id = ${id}`;
+      const result = await sql`SELECT s.* FROM stores s,users u WHERE s.id =u.storeid AND u.id = ${id}`;
       const result1=result.rows[0]
       const shop :Store={
       id:result1.id,
