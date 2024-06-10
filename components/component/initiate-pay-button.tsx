@@ -30,7 +30,7 @@ const InitPay = ({orderId}:{orderId:string} ) => {
         const initiatePaymentRequest: InitiatePaymentRequest = {
           receiverWalletId: '6649b362a58e585682a5ba1a', // Update with your receiver wallet ID
           token: 'TND',
-          amount: 58,
+          amount: 58000,
           type: 'immediate',
           description: 'Payment description',
           acceptedPaymentMethods: ['wallet', 'bank_card', 'e-DINAR','flouci'],
