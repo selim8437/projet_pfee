@@ -70,19 +70,24 @@ export function ConsultingStores() {
   };
   
   const verifyStor=(e:string)=>{
-    verifyStore(e,'verified')
+    verifyStore(e,'verified') ;
+    filteredStores= stores.filter((store) =>
+      store.name.toLowerCase().startsWith(searchQuery.toLowerCase()) );
   }
   const declineStore=(e:string)=>{
-    verifyStore(e,'declined')
+    verifyStore(e,'declined');
+    filteredStores= stores.filter((store) =>
+      store.name.toLowerCase().startsWith(searchQuery.toLowerCase()) );
   }
   const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
   
  
-const filteredStores= stores.filter((store) =>
+let filteredStores= stores.filter((store) =>
   store.name.toLowerCase().startsWith(searchQuery.toLowerCase())
 );
+
   return (
     <>
       {isLoading ? (
