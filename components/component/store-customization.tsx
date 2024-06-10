@@ -53,6 +53,7 @@ export default function StoreCustomization() {
   const [storeCategory, setStoreCategory] = useState('');
   const [shippingOption, setShippingOption] = useState('');
   const [returnPolicy, setReturnPolicy] = useState('');
+  const [verifState,setVerifState]=useState('') ;
   const [isLoading, setIsLoading] = useState(true); // State to track loading status
   const [categories,setCategories]=useState<Category[]>([]);
   const { user } = useUser();
@@ -94,7 +95,8 @@ export default function StoreCustomization() {
             
 
               setReturnPolicy(result.returnPolicies);
-            
+
+              setVerifState(result.verifState);
            
             if (isEmptyString(result.logo)===false){
               setLogoTest(true);
@@ -171,6 +173,14 @@ export default function StoreCustomization() {
               </CardHeader>
               <CardContent>
                 <Input className="w-full" value={storeName} onChange={(e) => setStoreName(e.target.value)} placeholder="Enter your store name" type="text" />
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Store State</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Input className="w-full" value={verifState} disabled type="text" />
               </CardContent>
             </Card>
           </div>
@@ -302,6 +312,7 @@ export default function StoreCustomization() {
                 />
               </CardContent>
             </Card>
+            
           </div>
         </div>
       </div>
