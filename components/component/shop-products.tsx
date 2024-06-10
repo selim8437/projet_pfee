@@ -61,7 +61,7 @@ export function ShopProducts({ shopId }: Props) {
  
   const getStore=async()=>{
     try {
-      const ftechedStore =await getStoreByid(shopId);
+      const ftechedStore =await getStoreByShopid(shopId);
       if(ftechedStore){
         setShop(ftechedStore);
       }

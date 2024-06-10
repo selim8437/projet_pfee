@@ -129,6 +129,29 @@ export async function getStoreByid(id: string) {
       throw new Error('Failed to fetch store from the database.');
   }
 }
+export async function getStoreByShopid(id: string) {
+  noStore();
+  try {
+      const result = await sql`SELECT s.* FROM stores s,users u WHERE s.id =u.storeid AND s.id = ${id}`;
+      const result1=result.rows[0]
+      const shop :Store={
+      id:result1.id,
+      name: result1.name,
+      logo:result1.logo,
+      banner:result1.banner,
+      description: result1.description,
+      categoryId:result1.categoryid,
+      verifUrl:result1.verifurl,
+      verifState:result1.verifstate,
+      shippingOptions: result1.shipping_options,
+      returnPolicies:result1.return_policies }
+      return shop; // Return the result of the query
+  } catch (error) {
+      // If a database error occurs, log the error and return a more specific error.
+      console.error('Database Error: Failed to Get Store.', error);
+      throw new Error('Failed to fetch store from the database.');
+  }
+}
 export async function getAllStores(){
   noStore();
   try{
