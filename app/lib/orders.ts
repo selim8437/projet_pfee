@@ -174,6 +174,26 @@ export async function getOrdersProductBySellerId(id:string){
         console.log(error);
     }
 }
+export async function getOrderProducts(id:string){
+
+    try{
+
+        const result =await sql`SELECT * FROM order_products WHERE order_id = ${id}  ;
+        
+       `
+       const orders :OrderProducts[]=result.rows.map(row => ({
+        orderId: row.order_id,
+        productId:row.product_id,
+        quantity:row.quantity,
+        
+    }));
+    console.log('orders fetched');
+
+    return orders ;
+    }catch(error){
+        console.log(error);
+    }
+}
 async function createOrderProduct(id: string, products: string[]) {
     try {
         const productQuantities: Record<string, number> = products.reduce((acc, productId) => {

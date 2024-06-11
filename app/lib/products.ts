@@ -121,6 +121,21 @@ export async function getAllProducts(){
        console.log(error)
      }
 }
+export async function getProductName(id:string){
+  noStore();
+   try {
+       const result= await sql`
+         SELECT title FROM products WHERE id=${id}  ;
+       `;
+       const row1=result.rows[0] ;
+       
+           console.log('product fetched')
+       return row1.title ;
+   } catch (error) {
+       // If a database error occurs, return a more specific error.
+       console.log(error)
+     }
+}
 export async function deleteProductById(id:string){
     try {
         await sql`

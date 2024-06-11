@@ -23,23 +23,33 @@ import { Badge } from "@/components/ui/badge"
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
 import { CardHeader, CardContent, CardFooter, Card } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { getOrderById } from "@/app/lib/orders"
+import { getOrderById, getOrderProducts } from "@/app/lib/orders"
 import { JSX, SVGProps, useEffect, useState } from "react"
-import { Order } from "@/app/lib/types/order"
+import { Order, OrderProducts } from "@/app/lib/types/order"
 import InitPay from "./initiate-pay-button";
 import { getStatusBadgeClass } from "./shop-orders";
 import { getUserName } from "@/app/lib/users";
+import { getProductName } from "@/app/lib/products";
 
 export function ConsultOrder({orderId}:{orderId:string}) {
   const [order,setOrder]=useState<Order|null>(null) ;
   const [buyerId,setBuyerId]=useState<string>('');
+  const [products,setProducts]=useState<OrderProducts[]>([]) ;
+  const [productNames, setProductNames] = useState<string[]>([]);
+
   const handlePrint = () => {
     window.print();
   };
   const fetchOrder = async () => {
     try {
       const fetchedOrder = await getOrderById(orderId);
+      const productIds=await getOrderProducts(orderId) ;
+      if(productIds){
+        setProducts(productIds) ;
+        const names = await Promise.all(productIds.map(product => getProductName(product.productId)));
+        setProductNames(names);
 
+      }
       if (fetchedOrder) {
         
         setOrder(fetchedOrder);
@@ -79,17 +89,26 @@ export function ConsultOrder({orderId}:{orderId:string}) {
         </CardHeader>
         <CardContent>
           <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
-              <div className="grid gap-4">
-                
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <span className="font-medium">Total</span>
-                  <span className="font-medium">{order?.totalPrice}</span>
-                </div>
-              </div>
-            </div>
+          <div className="grid md:grid-cols-2 gap-6">
+  <div>
+    <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
+    {productNames.map((product, index) => (
+      <div key={index}>{product}
+          <br></br>
+      </div>
+
+    ))}
+
+    <div className="grid gap-4">
+      <Separator />
+      <div className="flex items-center justify-between">
+        <span className="font-medium">Total</span>
+        <span className="font-medium">{order?.totalPrice}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
             <div>
               <h2 className="text-xl font-semibold mb-4">Shipping Details</h2>
               <div className="grid gap-4">
