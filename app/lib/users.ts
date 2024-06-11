@@ -121,7 +121,7 @@ export async function getUserName(id:string){
   noStore();
   try {
       const result= await sql`
-        SELECT firstname,lastname FROM users  ;
+        SELECT firstname,lastname FROM users WHERE id=${id} ;
       `;
       const firstname:string=result.rows[0].firstname ;
       const lastname:string=result.rows[0].lastname ;
