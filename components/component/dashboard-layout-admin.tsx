@@ -29,7 +29,7 @@ export function DashboardLayoutAdmin() {
           <div className="flex h-[60px] items-center  px-6">
             <Link className="flex items-center gap-2 text-white no-underline text-lg font-bold" href="#">
               <MountainIcon className="h-6 w-6" />
-              <span >Multivendor</span>
+              <span >Mall for All</span>
             </Link>
             <Button className="ml-auto h-8 w-8" size="icon" variant="outline">
               <BellIcon className="h-4 w-4" />

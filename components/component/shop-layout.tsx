@@ -16,7 +16,7 @@ export function ShopLayout() {
       <header className="bg-gray-900 py-4 px-6 md:px-8 flex items-center justify-between">
         <div className="flex items-center space-x-6">
           <Link href="#" className="text-white no-underline text-lg font-bold">
-            Multivendor
+            Mall for All
           </Link>
           <nav className="hidden md:flex space-x-4">
             <Link href="/shop/orders/" className="text-white no-underline hover:text-gray-300">
